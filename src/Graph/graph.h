@@ -19,7 +19,7 @@ public:
 	void LoadGraphFromFile(std::string filename);
 	void ExportGraphToDot(std::string filename);
 private:
-	std::vector<std::vector<size_t>> matrix_{ 0 }; /** <data matrix> */
+	std::vector<std::vector<size_t>> matrix_{ 0 };
 	size_t size_ = 0;
 	void ParseSize(std::string line);
 	void ParseLine(std::string line, size_t row);

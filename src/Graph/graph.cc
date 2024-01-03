@@ -1,4 +1,4 @@
-//#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include "graph.h"
 
 using namespace s21;
@@ -56,6 +56,20 @@ void Graph::LoadGraphFromFile(std::string filename) {
 }
 
 void Graph::ExportGraphToDot(std::string filename) {
+	std::ofstream out;
+	out.open(filename);
+	if (out.is_open()) {
+		out << "graph graphname {" << std::endl;
+		for (size_t i = 0; i < size_; i++) {
+			for (size_t j = i; j < size_; j++) {
+				if (matrix_[i][j]) {
+					out << "vertex" << i + 1 << " -- vertex" << j + 1 << std::endl;
+				}
+			}
+		}
+		out << "}";
+	}
+	out.close();
 }
 
 void s21::Graph::ParseSize(std::string line) {
