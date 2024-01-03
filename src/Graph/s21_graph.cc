@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include "graph.h"
+#include "s21_graph.h"
 
 using namespace s21;
 
