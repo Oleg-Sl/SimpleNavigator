@@ -1,14 +1,12 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include "s21_graph.h"
 
 using namespace s21;
 
-s21::Graph::Graph(size_t size) {
+Graph::Graph(size_t size) {
 	size_ = size;
-	SetEmptyMatrix(size);
 }
 
-void s21::Graph::SetValue(size_t row, size_t column, size_t value) {
+void Graph::SetValue(size_t row, size_t column, size_t value) {
 	if (row >= size_ || column >= size_) {
 		throw std::out_of_range("Cell index is out of range");
 	}
@@ -18,14 +16,18 @@ void s21::Graph::SetValue(size_t row, size_t column, size_t value) {
 	matrix_[row][column] = value;
 }
 
-size_t s21::Graph::GetValue(size_t row, size_t column) {
+std::vector<std::vector<size_t>> Graph::GetData() {
+	return matrix_;
+}
+
+size_t Graph::GetValue(size_t row, size_t column) {
 	if (row >= size_ || column >= size_) {
 		throw std::out_of_range("Cell index is out of range");
 	}
 	return matrix_[row][column];
 }
 
-size_t s21::Graph::GetSize() {
+size_t Graph::GetSize() {
 	return size_;
 }
 
@@ -36,21 +38,17 @@ void Graph::LoadGraphFromFile(std::string filename) {
 		std::string line;
 		bool first_line = true;
 		size_t row = 0;
-		try {
-			while (std::getline(in, line)) {
-				if (first_line) {
-					ParseSize(line);
-					first_line = false;
-				}
-				else {
-					ParseLine(line, row);
-					++row;
-				}
+		while (std::getline(in, line)) {
+			if (first_line) {
+				ParseSize(line);
+				first_line = false;
+			} else if(!line.empty()) {
+				if (row >= size_) throw std::out_of_range("The matrix is wrong");
+				ParseLine(line, row);
+				++row;
 			}
 		}
-		catch (const std::exception& ex) {
-			std::cout << ex.what();
-		}
+		if (row < size_) throw std::length_error("The matrix has less rows than size");
 	}
 	in.close();
 }
@@ -72,32 +70,23 @@ void Graph::ExportGraphToDot(std::string filename) {
 	out.close();
 }
 
-void s21::Graph::ParseSize(std::string line) {
-	try {
-		int size = std::stoi(line);
-		if (size == 0) throw std::invalid_argument("The matrix has size zero");
-		if (size < 0) throw std::invalid_argument("The matrix has incorrect size");
-		size_ = size;
-		SetEmptyMatrix(size);
-	}
-	catch (const std::exception& ex) {
-		std::cout << ex.what();
-	}
+void Graph::ParseSize(std::string line) {
+	int size = std::stoi(line);
+	if (size == 0) throw std::invalid_argument("The matrix has size zero");
+	if (size < 0) throw std::invalid_argument("The matrix has incorrect size");
+	size_ = size;
 }
 
-void s21::Graph::ParseLine(std::string line, size_t row) {
+void Graph::ParseLine(std::string line, size_t row) {
 	size_t column = 0;
 	char* token = strtok(const_cast<char*>(line.c_str()), " ");
+	std::vector<size_t> r;
+	matrix_.push_back(r);
 	while (token != nullptr) {
-		SetValue(row, column, std::stoi(token));
+		if (column >= size_) throw std::out_of_range("The matrix is wrong");
+		matrix_[row].push_back(std::stoi(token));
 		token = strtok(nullptr, " ");
 		++column;
 	}
-}
-
-void s21::Graph::SetEmptyMatrix(size_t size) {
-	if (size > 0) {
-		std::vector<size_t> row(size);
-		matrix_ = std::vector<std::vector<size_t>>(size, row);
-	}
+	if(column<size_) throw std::length_error("The matrix has less columns than size");
 }
