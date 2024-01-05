@@ -10,6 +10,8 @@ class GraphAlgorithms {
 public:
 	std::vector<size_t> DepthFirstSearch(Graph& graph, int start_vertex);
 	std::vector<size_t> BreadthFirstSearch(Graph& graph, int start_vertex);
+	size_t GetShortestPathBetweenVertices(Graph& graph, int vertex1, int vertex2);
+	std::vector<std::vector<size_t>> GetShortestPathsBetweenAllVertices(Graph& graph);
 };
 
 

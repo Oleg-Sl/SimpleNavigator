@@ -2,6 +2,8 @@
 using namespace s21;
 
 std::vector<size_t> GraphAlgorithms::DepthFirstSearch(Graph& graph, int start_vertex) {
+	if (start_vertex < 1) throw std::invalid_argument("Index of vertex is incorrect");
+	if (start_vertex > graph.GetSize()) throw std::out_of_range("Index of vertex is out of range");
 	std::vector<bool> visited(graph.GetSize());
 	size_t start = static_cast<size_t>(start_vertex) - 1;
 	visited[start] = true;
@@ -27,6 +29,8 @@ std::vector<size_t> GraphAlgorithms::DepthFirstSearch(Graph& graph, int start_ve
 }
 
 std::vector<size_t> GraphAlgorithms::BreadthFirstSearch(Graph& graph, int start_vertex) {
+	if (start_vertex < 1) throw std::invalid_argument("Index of vertex is incorrect");
+	if (start_vertex > graph.GetSize()) throw std::out_of_range("Index of vertex is out of range");
 	std::vector<bool> visited(graph.GetSize());	
 	size_t start = static_cast<size_t>(start_vertex) - 1;
 	visited[start] = true;
@@ -46,4 +50,14 @@ std::vector<size_t> GraphAlgorithms::BreadthFirstSearch(Graph& graph, int start_
 		}
 	}
 	return result;
+}
+
+size_t s21::GraphAlgorithms::GetShortestPathBetweenVertices(Graph& graph, int vertex1, int vertex2)
+{
+	return size_t();
+}
+
+std::vector<std::vector<size_t>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(Graph& graph)
+{
+	return std::vector<std::vector<size_t>>();
 }
