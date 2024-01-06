@@ -52,12 +52,29 @@ std::vector<size_t> GraphAlgorithms::BreadthFirstSearch(Graph& graph, int start_
 	return result;
 }
 
-size_t s21::GraphAlgorithms::GetShortestPathBetweenVertices(Graph& graph, int vertex1, int vertex2)
-{
-	return size_t();
+size_t s21::GraphAlgorithms::GetShortestPathBetweenVertices(Graph& graph, int vertex1, int vertex2) {
+	if (vertex1 < 1 || vertex2 <1) throw std::invalid_argument("Index of vertex is incorrect");
+	if (vertex1 > graph.GetSize() || vertex2 > graph.GetSize()) throw std::out_of_range("Index of vertex is out of range");
+	std::vector<size_t> min_length(graph.GetSize(), std::numeric_limits<size_t>::max());
+	size_t start = static_cast<size_t>(vertex1) - 1;
+	size_t finish = static_cast<size_t>(vertex2) - 1;
+	min_length[start] = 0;
+	Queue<size_t> queue;
+	queue.Push(start);
+	while (!queue.Empty()) {
+		size_t vertex = queue.Front();
+		queue.Pop();
+		for (size_t i = 0; i < graph.GetSize(); ++i) {
+			size_t weight = graph.GetData()[vertex][i];
+			if (i != vertex && weight && min_length[vertex] + weight < min_length[i]) {
+				min_length[i] = min_length[vertex] + weight;
+				queue.Push(i);
+			}
+		}
+	}
+	return min_length[finish];
 }
 
-std::vector<std::vector<size_t>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(Graph& graph)
-{
+std::vector<std::vector<size_t>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(Graph& graph) {
 	return std::vector<std::vector<size_t>>();
 }
