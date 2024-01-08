@@ -94,3 +94,11 @@ std::vector<std::vector<size_t>> s21::GraphAlgorithms::GetShortestPathsBetweenAl
 	}
 	return result;
 }
+
+std::vector<std::vector<size_t>> GraphAlgorithms::GetLeastSpanningTree(Graph& graph) {
+	return std::vector<std::vector<size_t>>();
+}
+
+TsmResult GraphAlgorithms::SolveTravelingSalesmanProblem(Graph& graph) {
+	return TsmResult();
+}
