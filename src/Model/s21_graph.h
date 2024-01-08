@@ -23,7 +23,8 @@ private:
 	std::vector<std::vector<size_t>> matrix_;
 	size_t size_ = 0;
 	void ParseSize(std::string line);
-	void ParseLine(std::string line, size_t row);	
+	void ParseLine(std::string line, size_t row);
+	void Reset();
 };
 
 } // namespace s21

@@ -14,9 +14,9 @@ namespace s21 {
 	class GraphAlgorithms {
 	public:
 		GraphAlgorithms() = default;
-		std::vector<size_t> DepthFirstSearch(Graph& graph, int start_vertex);
-		std::vector<size_t> BreadthFirstSearch(Graph& graph, int start_vertex);
-		size_t GetShortestPathBetweenVertices(Graph& graph, int vertex1, int vertex2);
+		std::vector<size_t> DepthFirstSearch(Graph& graph, size_t start_vertex);
+		std::vector<size_t> BreadthFirstSearch(Graph& graph, size_t start_vertex);
+		size_t GetShortestPathBetweenVertices(Graph& graph, size_t vertex1, size_t vertex2);
 		std::vector<std::vector<size_t>> GetShortestPathsBetweenAllVertices(Graph& graph);
 		std::vector<std::vector<size_t>> GetLeastSpanningTree(Graph& graph);
 		TsmResult SolveTravelingSalesmanProblem(Graph& graph);

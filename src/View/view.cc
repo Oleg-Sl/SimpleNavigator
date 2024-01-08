@@ -113,7 +113,7 @@ void View::SolveTravelingSalesmanProblem() {
 
 
 void View::Menu() {
-	std::cout << "Select action" << std::endl;
+	std::cout << "\nSelect action" << std::endl;
 	std::cout << "_____________________________________________\n";
 	std::cout << "1) Load graph from file" << std::endl;
 	std::cout << "2) Breadth first search" << std::endl;

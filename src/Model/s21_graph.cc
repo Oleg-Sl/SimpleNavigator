@@ -29,10 +29,10 @@ size_t Graph::GetSize() {
 }
 
 void Graph::LoadGraphFromFile(std::string filename) {
-	if (matrix_.size()) matrix_.clear();
 	std::ifstream in;
 	in.open(filename);
 	if (in.is_open()) {
+		Reset();
 		std::string line;
 		bool first_line = true;
 		size_t row = 0;
@@ -93,4 +93,9 @@ void Graph::ParseLine(std::string line, size_t row) {
 		++column;
 	}
 	if(column<size_) throw std::length_error("The matrix has less columns than size");
+}
+
+void s21::Graph::Reset() {
+	if (matrix_.size()) matrix_.clear();
+	size_ = 0;
 }
