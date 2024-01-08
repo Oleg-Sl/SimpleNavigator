@@ -8,13 +8,13 @@ namespace s21 {
 	public:
 		View(Controller& controller): controller_(controller) {}
 		void Start();
+	private:
+		Controller controller_;
 		void LoadGraphFromFile();
 		void FirstSearch(std::string type);
 		void GetShortestPathBetweenVertices();
 		void MatrixFunctions(std::string type);
 		void SolveTravelingSalesmanProblem();		
-	private:
-		Controller controller_;
 		void Menu();
 		void PrintVector(std::vector<size_t> vector);
 		void PrintMatrix(std::vector<std::vector<size_t>> matrix);
