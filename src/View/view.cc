@@ -9,8 +9,7 @@ void View::Start() {
 		std::cin >> str;
 		try {
 			int action = stoi(str);
-			switch (action)
-			{
+			switch (action) {
 			case 1:
 				LoadGraphFromFile();
 				break;
