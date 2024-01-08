@@ -1,5 +1,5 @@
-#ifndef SIMPLE_NAVIGATOR_GRAPH_ALGORITHMS_H
-#define SIMPLE_NAVIGATOR_GRAPH_ALGORITHMS_H
+#ifndef SIMPLE_NAVIGATOR_MODEL_GRAPH_ALGORITHMS_H
+#define SIMPLE_NAVIGATOR_MODEL_GRAPH_ALGORITHMS_H
 
 #include "../Containers/s21_queue.h"
 #include "../Containers/s21_stack.h"
@@ -24,4 +24,4 @@ namespace s21 {
 
 } // namespace s21
 
-#endif  // SIMPLE_NAVIGATOR_ALGORITHMS_H
+#endif  // SIMPLE_NAVIGATOR_MODEL_ALGORITHMS_H

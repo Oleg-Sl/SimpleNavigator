@@ -1,5 +1,5 @@
-#ifndef SIMPLE_NAVIGATOR_GRAPH_H
-#define SIMPLE_NAVIGATOR_GRAPH_H
+#ifndef SIMPLE_NAVIGATOR_MODEL_GRAPH_H
+#define SIMPLE_NAVIGATOR_MODEL_GRAPH_H
 
 #include <string>
 #include <vector>
@@ -28,4 +28,4 @@ private:
 
 } // namespace s21
 
-#endif  // SIMPLE_NAVIGATOR_GRAPH_H
+#endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_H
