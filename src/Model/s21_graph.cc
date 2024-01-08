@@ -29,6 +29,7 @@ size_t Graph::GetSize() {
 }
 
 void Graph::LoadGraphFromFile(std::string filename) {
+	if (matrix_.size()) matrix_.clear();
 	std::ifstream in;
 	in.open(filename);
 	if (in.is_open()) {
