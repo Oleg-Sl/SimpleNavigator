@@ -13,6 +13,7 @@ namespace s21 {
 
 	class GraphAlgorithms {
 	public:
+		GraphAlgorithms() = default;
 		std::vector<size_t> DepthFirstSearch(Graph& graph, int start_vertex);
 		std::vector<size_t> BreadthFirstSearch(Graph& graph, int start_vertex);
 		size_t GetShortestPathBetweenVertices(Graph& graph, int vertex1, int vertex2);
@@ -20,8 +21,6 @@ namespace s21 {
 		std::vector<std::vector<size_t>> GetLeastSpanningTree(Graph& graph);
 		TsmResult SolveTravelingSalesmanProblem(Graph& graph);
 	};
-
-
 } // namespace s21
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_ALGORITHMS_H

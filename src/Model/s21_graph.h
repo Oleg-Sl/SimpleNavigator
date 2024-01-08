@@ -12,13 +12,13 @@ namespace s21 {
 class Graph {
 public:
 	Graph() = default;
-	Graph(size_t size);
 	void SetValue(size_t row, size_t column, size_t value);
 	std::vector<std::vector<size_t>> GetData();
 	size_t GetValue(size_t row, size_t column);
 	size_t GetSize();
 	void LoadGraphFromFile(std::string filename);
 	void ExportGraphToDot(std::string filename);
+	bool GraphIsEmpty();
 private:
 	std::vector<std::vector<size_t>> matrix_;
 	size_t size_ = 0;

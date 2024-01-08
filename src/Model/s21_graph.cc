@@ -3,10 +3,6 @@
 
 using namespace s21;
 
-Graph::Graph(size_t size) {
-	size_ = size;
-}
-
 void Graph::SetValue(size_t row, size_t column, size_t value) {
 	if (row >= size_ || column >= size_) {
 		throw std::out_of_range("Cell index is out of range");
@@ -50,6 +46,8 @@ void Graph::LoadGraphFromFile(std::string filename) {
 			}
 		}
 		if (row < size_) throw std::length_error("The matrix has less rows than size");
+	} else {
+		throw std::runtime_error("File not found");
 	}
 	in.close();
 }
@@ -69,6 +67,10 @@ void Graph::ExportGraphToDot(std::string filename) {
 		out << "}";
 	}
 	out.close();
+}
+
+bool s21::Graph::GraphIsEmpty() {
+	return size_ == 0;
 }
 
 void Graph::ParseSize(std::string line) {
