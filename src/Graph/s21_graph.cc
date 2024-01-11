@@ -1,22 +1,25 @@
 #include "s21_graph.h"
 
+
 using namespace s21;
 
-Graph::Graph(size_t size) {
-	size_ = size;
+Graph::Graph(size_t size) : matrix_(std::vector<std::vector<size_t>>(size, std::vector<size_t>(size, 0))), size_(size) {
+}
+
+Graph::Graph(size_t size, size_t init_value) : matrix_(std::vector<std::vector<size_t>>(size, std::vector<size_t>(size, init_value))), size_(size) {
 }
 
 void Graph::SetValue(size_t row, size_t column, size_t value) {
 	if (row >= size_ || column >= size_) {
 		throw std::out_of_range("Cell index is out of range");
 	}
-	if (value < 0) {
-		throw std::invalid_argument("Value must be a natural number");
-	}
+	// if (value < 0) {
+	// 	throw std::invalid_argument("Value must be a natural number");
+	// }
 	matrix_[row][column] = value;
 }
 
-std::vector<std::vector<size_t>> Graph::GetData() {
+std::vector<std::vector<size_t>> &Graph::GetData() {
 	return matrix_;
 }
 
@@ -29,6 +32,21 @@ size_t Graph::GetValue(size_t row, size_t column) {
 
 size_t Graph::GetSize() {
 	return size_;
+}
+
+std::vector<size_t> Graph::GetNeighbors(size_t from) {
+	if (from >= size_) {
+		throw std::out_of_range("Cell index is out of range");
+	}
+
+	std::vector<size_t> neighbors;
+	for (size_t to = 0; to < size_; ++to) {
+		if (from != to && matrix_[from][to] != 0) {
+			neighbors.push_back(matrix_[from][to]);
+		}
+	}
+
+	return neighbors;
 }
 
 void Graph::LoadGraphFromFile(std::string filename) {
@@ -89,4 +107,14 @@ void Graph::ParseLine(std::string line, size_t row) {
 		++column;
 	}
 	if(column<size_) throw std::length_error("The matrix has less columns than size");
+}
+
+void Graph::print() {
+	std::cout << "Матрица смежности: " << std::endl;
+	for (size_t i = 0; i < size_; ++i) {
+		for (size_t j = 0; j < size_; ++j) {
+			std::cout << std::setw(4) << matrix_[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
 }

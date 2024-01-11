@@ -30,7 +30,7 @@ public:
 
             population = selection_chromosome.execute(population);
             crossover_popualtion.execute(population, 0.9);
-            // mutation_popualtion.execute(population, 0.01);
+            mutation_popualtion.execute(population, 0.01);
 
             const Chromosome &chromosome = population.getBestChromosome();
             if (chromosome.genes.size() == (distances_.GetSize() + 1) && chromosome.distance < min_path.distance) {
