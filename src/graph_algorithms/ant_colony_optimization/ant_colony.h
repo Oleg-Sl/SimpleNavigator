@@ -6,7 +6,7 @@
 
 
 #include "ant.h"
-#include "common.h"
+#include "../common/common.h"
 #include "pheromone.h"
 #include "../../Graph/s21_graph.h"
 

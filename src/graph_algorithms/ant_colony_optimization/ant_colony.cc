@@ -14,7 +14,7 @@ TsmResult AntColony::solve() {
         Pheromones pheromones(graph_.GetSize(), kPheromonInitialLevel, kPheromoneEvaporationRate);
         createAntColony();
 
-        for (auto ant : ant_colony) {
+        for (auto &ant : ant_colony) {
             while (ant.move(pheromones)) {
             }
 

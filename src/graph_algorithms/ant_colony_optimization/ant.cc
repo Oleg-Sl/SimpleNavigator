@@ -4,7 +4,7 @@
 namespace s21 {
 
 
-Ant::Ant(Graph &distances, std::mt19937 &gen, double pheromon_quantiy) : distances_(distances), gen_(gen), pheromon_quantiy_(pheromon_quantiy), used_vertex_(std::vector<bool>(distances.GetSize(), false)) {
+Ant::Ant(Graph &distances, std::mt19937 &gen, double pheromon_quantiy): distances_(distances), gen_(gen), pheromon_quantiy_(pheromon_quantiy), used_vertex_(std::vector<bool>(distances.GetSize(), false)) {
     std::uniform_int_distribution<size_t> dist_{0, distances.GetSize() - 1};
     size_t start_vertex = dist_(gen_);
     path_.vertices.push_back(start_vertex);
@@ -16,8 +16,8 @@ Ant::Ant(Graph &distances, std::mt19937 &gen, double pheromon_quantiy) : distanc
 bool Ant::move(Pheromones &pheromones) {
     std::vector<size_t> neighbors = getVerticesPossibleNeighbors();
     if (neighbors.empty() && path_.vertices.size() > 1 && distances_.GetValue(path_.vertices.back(), path_.vertices.front()) != 0) {
-        path_.vertices.push_back(path_.vertices.front());
         double distance = distances_.GetValue(path_.vertices.back(), path_.vertices.front());
+        path_.vertices.push_back(path_.vertices.front());
         path_.distance += distance;
     }
 

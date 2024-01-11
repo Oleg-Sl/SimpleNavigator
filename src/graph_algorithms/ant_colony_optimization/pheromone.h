@@ -8,7 +8,7 @@
 #include<iomanip>
 
 
-#include "common.h"
+#include "../common/common.h"
 
 
 namespace s21 {

@@ -9,7 +9,7 @@
 
 #include "../../Graph/s21_graph.h"
 #include "pheromone.h"
-#include "common.h"
+#include "../common/common.h"
 
 
 namespace s21 {
