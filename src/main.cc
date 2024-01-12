@@ -19,7 +19,7 @@ int main() {
         // graph.LoadGraphFromFile("Graph/graph_error.txt");
         s21::AntColony ant_colony(graph, 10, 1000);
         s21::TsmResult result = ant_colony.solve();
-        
+
         std::cout << "Кратчайший путь: ";
         for (auto &vertice : result.vertices) {
             std::cout << vertice << " ";
