@@ -15,8 +15,8 @@ class List {
     Node* next_ = nullptr;
     Node* prev_ = nullptr;
     Node(T value) : value_(value){};
-    template <typename... Args>
-    Node(Args&&... args) : value_(std::forward<Args>(args)...){};
+    // template <typename... Args>
+    // Node(Args&&... args) : value_(std::forward<Args>(args)...) {};
   };
 
   // Internal class ListIterator
