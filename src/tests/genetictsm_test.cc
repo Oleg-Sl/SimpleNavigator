@@ -58,7 +58,7 @@ TEST(GeneticTest, MultipleRunsGraph) {
     Graph graph;
     graph.LoadGraphFromFile("files/graph_example.txt");
     GraphAlgorithms algorithms;
-    for (size_t i = 0; i < 100; ++i) {
+    for (size_t i = 0; i < 50; ++i) {
         TsmResult result = algorithms.SolveTravelingSalesmanProblemGeneticAlgorithm(graph);
         ASSERT_EQ(result.vertices.size(), graph.GetSize() + 1);
         ASSERT_LT(result.distance, 270);

@@ -42,23 +42,17 @@ leaks: test
 	$(MEMORY_TEST) $(BUILD_DIR)/tests/test --gtest_filter=-*.Throw*
 
 report: build
-	cmake --build $(BUILD_DIR) --target rep
-	$(BUILD_DIR)/s21_test
-	cd $(BUILD_DIR) && lcov --capture -d . --exclude "/usr/*" -o coverage.info --ignore-errors mismatch
-	genhtml $(BUILD_DIR)/coverage.info -o REPORT
-# ./$(BUILD_DIR)/tests/report
-# cd $(BUILD_DIR)/tests/CMakeFiles/report.dir && lcov --capture --directory . --output-file s21_coverage.info --ignore-errors version
-# lcov --capture --directory $(BUILD_DIR)/tests/CMakeFiles/report.dir --output-file s21_coverage.info --exclude "/usr/*"  --ignore-errors mismatch  --ignore-errors version
-# lcov --capture --directory $(BUILD_DIR)/tests/CMakeFiles/report.dir --output-file s21_coverage.info --ignore-errors version --exclude "/usr/*"  --ignore-errors mismatch
-# lcov --capture -d $(BUILD_DIR)/tests/CMakeFiles/report.dir --exclude "/usr/*" -o coverage.info --ignore-errors mismatch
-# genhtml s21_coverage.info --output-directory s21_lcov_report
-# $(OPEN_FILE) ./s21_lcov_report/index.html
+	cmake --build $(BUILD_DIR) --target report
+	./$(BUILD_DIR)/tests/report
+	lcov --capture --directory $(BUILD_DIR)/tests/CMakeFiles/report.dir --output-file $(BUILD_DIR)/s21_coverage.info --exclude "/usr/*"
+	genhtml $(BUILD_DIR)/s21_coverage.info --output-directory s21_lcov_report
+	$(OPEN_FILE) ./s21_lcov_report/index.html
 
 stylecheck: build
 	cmake --build $(BUILD_DIR) --target stylecheck
 
 cppcheck: build
-	cmake --build $(BUILD_DIR) --target cppcheck§	
+	cmake --build $(BUILD_DIR) --target cppcheck
 
 format: build
 	cmake --build $(BUILD_DIR) --target format
