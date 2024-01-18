@@ -45,7 +45,7 @@ TsmResult SimulatedAnnealing::GenInitalPath() {
     path.push_back(i);
   }
 
-  std::random_shuffle(path.begin(), path.end());
+  std::shuffle(path.begin(), path.end(), random_generator_);
   path.push_back(*path.begin());
 
   return {path, CalculateTotalDistance(path)};
