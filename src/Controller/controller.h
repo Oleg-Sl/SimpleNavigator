@@ -17,6 +17,7 @@ class Controller {
   std::vector<std::vector<size_t>> GetLeastSpanningTree();
   TsmResult SolveTravelingSalesmanProblem();
   TsmResult SolveTravelingSalesmanProblemGeneticAlgorithm();
+  TsmResult SolveTravelingSalesmanProblemSimulatedAnnealing();
   bool GraphIsEmpty();
 
  private:

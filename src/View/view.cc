@@ -35,7 +35,7 @@ void View::Start() {
           SolveTravelingSalesmanProblemGeneticAlgorithm();
           break;
         case 9:
-          SolveTravelingSalesmanProblem();
+          SolveTravelingSalesmanProblemSimulatedAnnealing();
           break;
         case 10:
           CompareMethodsSolvingTravelingSalesmanProblem();
@@ -146,6 +146,24 @@ void View::SolveTravelingSalesmanProblemGeneticAlgorithm() {
   }
 }
 
+void View::SolveTravelingSalesmanProblemSimulatedAnnealing() {
+  if (CheckGraph()) {
+    std::cout << "First load graph!\n";
+  } else {
+    try {
+      TsmResult result =
+          controller_.SolveTravelingSalesmanProblemSimulatedAnnealing();
+      std::cout << "Path: ";
+      PrintVector(result.vertices);
+      std::cout << "Distance: " << result.distance << std::endl;
+    } catch (const std::exception& ex) {
+      std::cout << "No solution to the traveling salesman problem found"
+                << std::endl;
+    }
+  }
+}
+
+
 void View::CompareMethodsSolvingTravelingSalesmanProblem() {
   if (CheckGraph()) {
     std::cout << "First load graph!\n";
@@ -162,14 +180,19 @@ void View::CompareMethodsSolvingTravelingSalesmanProblem() {
           measureTime(AlgoritmSolveTSM::kAntColony, number);
       std::chrono::milliseconds time_genetic =
           measureTime(AlgoritmSolveTSM::kGenetic, number);
+      std::chrono::milliseconds time_simulated_annealing =
+          measureTime(AlgoritmSolveTSM::kSimulatedAnnealing, number);
 
       std::cout << "Running time algorithms: " << std::endl;
       std::cout << "Ant colony: " << time_ant_colony.count() << " ms"
                 << std::endl;
       std::cout << "Genetic:    " << time_genetic.count() << " ms" << std::endl;
+      std::cout << "Simulated annealing:    "
+                << time_simulated_annealing.count() << " ms" << std::endl;
     } catch (const std::exception& ex) {
       std::cout << "Error: " << ex.what() << std::endl;
-      std::cout << "No solution to the traveling salesman problem found" << std::endl;
+      std::cout << "No solution to the traveling salesman problem found"
+                << std::endl;
     }
   }
 }
@@ -187,7 +210,8 @@ void View::Menu() {
             << std::endl;
   std::cout << "8) Solve traveling salesman problem using a genetic algorithm"
             << std::endl;
-  std::cout << "9) Solve traveling salesman problem using a ??????? algorithm"
+  std::cout << "9) Solve traveling salesman problem using a simulated "
+               "annealing algorithm"
             << std::endl;
   std::cout << "10) Compare methods for solving the traveling salesman problem"
             << std::endl;
@@ -197,7 +221,7 @@ void View::Menu() {
 
 void View::PrintVector(std::vector<size_t> vector) {
   for (size_t i = 0; i < vector.size(); ++i) {
-    std::cout << vector[i] << " ";
+    std::cout << vector[i] + 1 << " ";
   }
   std::cout << std::endl;
 }
@@ -223,6 +247,9 @@ std::chrono::milliseconds View::measureTime(AlgoritmSolveTSM algorithm,
         break;
       case AlgoritmSolveTSM::kGenetic:
         controller_.SolveTravelingSalesmanProblemGeneticAlgorithm();
+        break;
+      case AlgoritmSolveTSM::kSimulatedAnnealing:
+        controller_.SolveTravelingSalesmanProblemSimulatedAnnealing();
         break;
       default:
         break;

@@ -1,4 +1,6 @@
 #include "s21_graph_algorithms.h"
+#include "traveling_salesman/simulated_annealing/simulated_annealing.h"
+
 using namespace s21;
 
 std::vector<size_t> GraphAlgorithms::DepthFirstSearch(Graph& graph,
@@ -111,8 +113,40 @@ s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(Graph& graph) {
 
 std::vector<std::vector<size_t>> GraphAlgorithms::GetLeastSpanningTree(
     Graph& graph) {
-  graph.GetSize();
-  return std::vector<std::vector<size_t>>();
+  size_t N = graph.GetSize();
+  std::vector<std::vector<size_t>> spanning_tree(N, std::vector<size_t>(N, 0));
+  std::set<size_t> visited;
+  std::set<size_t> unvisited;
+
+  for (size_t i = 0; i < N; ++i) {
+    unvisited.insert(i);
+  }
+
+  auto first = unvisited.begin();
+  visited.insert(*first);
+  unvisited.erase(first);
+
+  while (!unvisited.empty()) {
+    std::pair<size_t, size_t> min_index = {0, 0};
+    size_t min_weight = std::numeric_limits<size_t>::max();
+
+    for (size_t curr : visited) {
+      for (size_t i = 0; i < N; ++i) {
+        size_t adj_weight = graph.GetData()[curr][i];
+        if (adj_weight <= min_weight && adj_weight != 0 && unvisited.count(i)) {
+          min_weight = adj_weight;
+          min_index = {curr, i};
+        }
+      }
+    }
+
+    spanning_tree[min_index.first][min_index.second] = min_weight;
+    spanning_tree[min_index.second][min_index.first] = min_weight;
+    unvisited.erase(min_index.second);
+    visited.insert(min_index.second);
+  }
+
+  return spanning_tree;
 }
 
 TsmResult GraphAlgorithms::SolveTravelingSalesmanProblem(Graph& graph) {
@@ -151,4 +185,11 @@ TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemGeneticAlgorithm(
   }
 
   return path;
+}
+
+TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemSimulatedAnnealing(
+    Graph& graph) {
+  SimulatedAnnealing simulated_annealing(graph);
+
+  return simulated_annealing.Solve();
 }

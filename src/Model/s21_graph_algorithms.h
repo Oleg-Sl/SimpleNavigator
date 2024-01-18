@@ -24,6 +24,7 @@ class GraphAlgorithms {
   std::vector<std::vector<size_t>> GetLeastSpanningTree(Graph& graph);
   TsmResult SolveTravelingSalesmanProblem(Graph& graph);
   TsmResult SolveTravelingSalesmanProblemGeneticAlgorithm(Graph& graph);
+  TsmResult SolveTravelingSalesmanProblemSimulatedAnnealing(Graph& graph);
 };
 }  // namespace s21
 

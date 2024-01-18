@@ -41,6 +41,8 @@ file(GLOB_RECURSE LIB_GRAPH_ALGORITHM_SOURCE  ${MODEL_DIR}/s21_graph_algorithms.
                                               ${MODEL_DIR}/traveling_salesman/ant_colony_algorithm/*.h
                                               ${MODEL_DIR}/traveling_salesman/genetic_algorithm/*.h
                                               ${MODEL_DIR}/traveling_salesman/common/*.h
+                                              ${MODEL_DIR}/traveling_salesman/simulated_annealing/*.cc
+                                              ${MODEL_DIR}/traveling_salesman/simulated_annealing/*.h
                                               ${CONTAINERS_DIR}/*.h
 )
 file(GLOB TEST_SOURCES ${TEST_DIR}/*.cc)
@@ -56,5 +58,5 @@ add_custom_target(cppcheck COMMAND cppcheck --enable=all --suppress=missingInclu
 
 add_subdirectory(Model)
 
-# enable_testing()
+enable_testing()
 add_subdirectory(tests)

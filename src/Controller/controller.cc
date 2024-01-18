@@ -35,4 +35,8 @@ TsmResult Controller::SolveTravelingSalesmanProblemGeneticAlgorithm() {
   return algorithms_.SolveTravelingSalesmanProblemGeneticAlgorithm(graph_);
 }
 
+TsmResult s21::Controller::SolveTravelingSalesmanProblemSimulatedAnnealing() {
+  return algorithms_.SolveTravelingSalesmanProblemSimulatedAnnealing(graph_);
+}
+
 bool Controller::GraphIsEmpty() { return graph_.GraphIsEmpty(); }

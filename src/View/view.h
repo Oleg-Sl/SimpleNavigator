@@ -8,7 +8,7 @@
 namespace s21 {
 class View {
  public:
-  enum class AlgoritmSolveTSM { kAntColony, kGenetic };
+  enum class AlgoritmSolveTSM { kAntColony, kGenetic, kSimulatedAnnealing };
   View(Controller& controller) : controller_(controller) {}
   void Start();
 
@@ -20,6 +20,7 @@ class View {
   void MatrixFunctions(std::string type);
   void SolveTravelingSalesmanProblem();
   void SolveTravelingSalesmanProblemGeneticAlgorithm();
+  void SolveTravelingSalesmanProblemSimulatedAnnealing();
   void CompareMethodsSolvingTravelingSalesmanProblem();
   void Menu();
   void PrintVector(std::vector<size_t> vector);
