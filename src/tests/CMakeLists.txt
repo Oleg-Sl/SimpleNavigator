@@ -16,22 +16,20 @@ FetchContent_MakeAvailable(googletest)
 
 
 enable_testing()
-add_executable(test ${TEST_SOURCES})
-target_link_libraries(test ${TARGET_GRAPH_LIB})
-target_link_libraries(test ${TARGET_GRAPH_ALGORITM_LIB})
-target_link_libraries(test GTest::gtest_main)
+add_executable(${PROJECT_NAME} ${TEST_SOURCES})
+target_link_libraries(${PROJECT_NAME} ${TARGET_GRAPH_LIB})
+target_link_libraries(${PROJECT_NAME} ${TARGET_GRAPH_ALGORITM_LIB})
+target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
 
 
 # Report
 add_executable(report ${TEST_SOURCES})
-SET(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
-SET(CMAKE_C_FLAGS "-g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
-SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
+
 target_link_libraries(report ${TARGET_GRAPH_LIB})
 target_link_libraries(report ${TARGET_GRAPH_ALGORITM_LIB})
 target_link_libraries(report GTest::gtest_main)
 
 include(GoogleTest)
 add_definitions(-DASSETS_DIR="${FILES_DIR}")
-gtest_discover_tests(test)
+gtest_discover_tests(${PROJECT_NAME})
 gtest_discover_tests(report)
