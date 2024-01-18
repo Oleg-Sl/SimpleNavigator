@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <limits>
 #include <vector>
+#include <cmath>
 
 #include "../../s21_graph.h"
 
@@ -19,6 +20,7 @@ struct Chromosome {
     }
 
     distance = 0;
+
     for (size_t i = 0; i < genes.size() - 1; ++i) {
       if (genes[i] != genes[i + 1] &&
           distances.GetValue(genes[i], genes[i + 1]) == 0) {
@@ -27,6 +29,13 @@ struct Chromosome {
       };
       distance += distances.GetValue(genes[i], genes[i + 1]);
     }
+    // if (!std::isinf(distance)) {
+    //   for (auto &el : genes) {
+    //     std::cout << el << " ";
+    //   }
+    //   std::cout << std::endl;
+    //   std::cout << "Chromosome distance: " << distance << std::endl;
+    // }
   }
 };
 

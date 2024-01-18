@@ -132,7 +132,7 @@ TsmResult GraphAlgorithms::SolveTravelingSalesmanProblem(Graph& graph) {
 TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemGeneticAlgorithm(
     Graph& graph) {
   size_t number_generations = 50;
-  size_t population_size = 200;
+  size_t population_size = 100;
   double possible_mutation = 0.01;
   double possible_crossover = 0.9;
 

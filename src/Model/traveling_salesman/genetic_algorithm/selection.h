@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "../../s21_graph.h"
-// #include "../common/path_structure.h"
 #include "population.h"
 
 namespace s21 {
