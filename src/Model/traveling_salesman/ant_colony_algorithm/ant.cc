@@ -18,13 +18,11 @@ bool Ant::move(Pheromones &pheromones) {
   std::vector<size_t> neighbors = getVerticesPossibleNeighbors();
   if (neighbors.empty() && path_.vertices.size() == distances_.GetSize()) {
     size_t distance = distances_.GetValue(path_.vertices.back(), path_.vertices.front());
-    if (distance == 0 || std::isinf(path_.distance)) {
+    if ((distance == 0 && path_.vertices.back() != path_.vertices.front()) || std::isinf(path_.distance)) {
       path_.distance = std::numeric_limits<double>::infinity();
     } else {
       path_.distance += static_cast<double>(distance);
     }
-    // path_.distance +=
-    //     distances_.GetValue(path_.vertices.back(), path_.vertices.front());
     path_.vertices.push_back(path_.vertices.front());
   }
 

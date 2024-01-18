@@ -49,7 +49,7 @@ add_executable(cli ${CLI_SOURCE})
 target_link_libraries(cli ${TARGET_GRAPH_LIB})
 target_link_libraries(cli ${TARGET_GRAPH_ALGORITM_LIB})
 
-
+add_custom_target(rep COMMAND g++ -Wall -Wextra -Werror -std=c++17 ../tests/*.cc ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE} -o s21_test -fprofile-arcs -ftest-coverage -lgtest)
 add_custom_target(format COMMAND clang-format --style=Google -i --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 add_custom_target(stylecheck COMMAND clang-format --style=Google -n --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 add_custom_target(cppcheck COMMAND cppcheck --enable=all --suppress=missingInclude --inconclusive --check-config ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
