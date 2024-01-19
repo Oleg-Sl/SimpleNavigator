@@ -23,8 +23,6 @@ class Graph {
   std::vector<size_t> GetNeighbors(size_t from);
   void LoadGraphFromFile(std::string filename);
   void ExportGraphToDot(std::string filename);
-  void print();
-
   bool GraphIsEmpty();
 
  private:

@@ -17,9 +17,6 @@ void Graph::SetValue(size_t row, size_t column, size_t value) {
   if (row >= size_ || column >= size_) {
     throw std::out_of_range("Cell index is out of range");
   }
-  // if (value < 0) {
-  // 	throw std::invalid_argument("Value must be a natural number");
-  // }
   matrix_[row][column] = value;
 }
 
@@ -38,14 +35,12 @@ std::vector<size_t> Graph::GetNeighbors(size_t from) {
   if (from >= size_) {
     throw std::out_of_range("Cell index is out of range");
   }
-
   std::vector<size_t> neighbors;
   for (size_t to = 0; to < size_; ++to) {
     if (from != to && matrix_[from][to] != 0) {
       neighbors.push_back(matrix_[from][to]);
     }
   }
-
   return neighbors;
 }
 
@@ -79,7 +74,7 @@ void Graph::ExportGraphToDot(std::string filename) {
   std::ofstream out;
   out.open(filename);
   if (out.is_open()) {
-    out << "graph graphname {" << std::endl;
+    out << "graph " + filename + "{" << std::endl;
     for (size_t i = 0; i < size_; i++) {
       for (size_t j = i; j < size_; j++) {
         if (matrix_[i][j]) {
@@ -103,27 +98,17 @@ void Graph::ParseSize(std::string line) {
 
 void Graph::ParseLine(std::string line, size_t row) {
   size_t column = 0;
-  char* token = strtok(const_cast<char*>(line.c_str()), " ");
+  std::stringstream ss(line);
   std::vector<size_t> r;
   matrix_.push_back(r);
-  while (token != nullptr) {
+  std::string token;
+  while (ss >> token) {
     if (column >= size_) throw std::out_of_range("The matrix is wrong");
     matrix_[row].push_back(std::stoi(token));
-    token = strtok(nullptr, " ");
     ++column;
   }
   if (column < size_)
     throw std::length_error("The matrix has less columns than size");
-}
-
-void Graph::print() {
-  std::cout << "Матрица смежности: " << std::endl;
-  for (size_t i = 0; i < size_; ++i) {
-    for (size_t j = 0; j < size_; ++j) {
-      std::cout << std::setw(4) << matrix_[i][j] << " ";
-    }
-    std::cout << std::endl;
-  }
 }
 
 void s21::Graph::Reset() {
