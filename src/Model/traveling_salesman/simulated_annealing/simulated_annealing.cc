@@ -5,22 +5,21 @@
 namespace s21 {
 
 SimulatedAnnealing::SimulatedAnnealing(const Graph &graph,
-                                       double start_temperature,
-                                       double cooling_rate)
-    : graph_(graph), start_temperature_(start_temperature),
-      cooling_rate_(cooling_rate) {}
+                                       const AnnealingParams &params)
+    : graph_(graph), params_(params) {}
 
-TsmResult SimulatedAnnealing::Solve() {
+TsmResult SimulatedAnnealing::Solve() const {
   if (graph_.GraphIsEmpty()) {
     return TsmResult();
   }
 
   TsmResult best_solution = GenInitalPath();
-  for (size_t i = 0; i < kAlgorithmReloads; ++i) {
+  for (size_t i = 0; i < params_.algorithm_reloads; ++i) {
     TsmResult current_solution = GenInitalPath();
-    double temperature = start_temperature_;
+    double temperature = params_.start_temperature;
 
-    while (temperature > kMinTemperature) {
+    size_t t = 2;
+    while (temperature > params_.min_temperature) {
       TsmResult new_solution = RandomSwap(current_solution);
 
       double delta_cost = new_solution.distance - current_solution.distance;
@@ -32,14 +31,15 @@ TsmResult SimulatedAnnealing::Solve() {
         }
       }
 
-      temperature *= cooling_rate_;
+      temperature = params_.calculate_new_temperature(temperature, t);
+      ++t;
     }
   }
 
   return best_solution;
 }
 
-TsmResult SimulatedAnnealing::GenInitalPath() {
+TsmResult SimulatedAnnealing::GenInitalPath() const {
   std::vector<size_t> path;
   for (size_t i = 0; i < graph_.GetSize(); ++i) {
     path.push_back(i);
@@ -51,34 +51,37 @@ TsmResult SimulatedAnnealing::GenInitalPath() {
   return {path, CalculateTotalDistance(path)};
 }
 
-double SimulatedAnnealing::CalculateTotalDistance(std::vector<size_t> path) {
+double SimulatedAnnealing::CalculateTotalDistance(
+    const std::vector<size_t> &path) const {
   double distance = 0;
 
   for (size_t i = 0; i < path.size() - 1; i++) {
     size_t currentVertex = path[i];
     size_t nextVertex = path[i + 1];
-    if (graph_.GetData()[currentVertex][nextVertex] == 0 &&
+    if (graph_.GetValue(currentVertex, nextVertex) == 0 &&
         currentVertex != nextVertex) {
       distance = std::numeric_limits<double>::infinity();
       break;
     }
-    distance += graph_.GetData()[currentVertex][nextVertex];
+    distance += graph_.GetValue(currentVertex, nextVertex);
   }
 
   return distance;
 }
 
-bool SimulatedAnnealing::AcceptSolution(double delta_cost, double temperature) {
+bool SimulatedAnnealing::AcceptSolution(double delta_cost,
+                                        double temperature) const {
   if (delta_cost < 0) {
     return true;
   } else {
-    double probability = 1 / (1 + std::exp(-delta_cost / temperature));
+    double probability =
+        params_.calculate_transition_probability(delta_cost, temperature);
     std::uniform_real_distribution<double> distribution(0.0, 1.0);
     return distribution(random_generator_) < probability;
   }
 }
 
-TsmResult SimulatedAnnealing::RandomSwap(const TsmResult &solution) {
+TsmResult SimulatedAnnealing::RandomSwap(const TsmResult &solution) const {
   TsmResult new_solution = solution;
 
   if (new_solution.vertices.size() > 2) {
@@ -94,4 +97,4 @@ TsmResult SimulatedAnnealing::RandomSwap(const TsmResult &solution) {
 
   return new_solution;
 }
-} // namespace s21
+}  // namespace s21

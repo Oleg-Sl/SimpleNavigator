@@ -189,7 +189,7 @@ TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemGeneticAlgorithm(
 
 TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemSimulatedAnnealing(
     Graph& graph) {
-  SimulatedAnnealing simulated_annealing(graph);
+  SimulatedAnnealing simulated_annealing(graph, AnnealingParams{});
 
   return simulated_annealing.Solve();
 }
