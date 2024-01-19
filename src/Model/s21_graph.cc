@@ -20,7 +20,7 @@ void Graph::SetValue(size_t row, size_t column, size_t value) {
   matrix_[row][column] = value;
 }
 
-std::vector<std::vector<size_t>>& Graph::GetData() { return matrix_; }
+Graph::MatrixAdjacency& Graph::GetData() { return matrix_; }
 
 size_t Graph::GetValue(size_t row, size_t column) {
   if (row >= size_ || column >= size_) {
@@ -87,7 +87,7 @@ void Graph::ExportGraphToDot(std::string filename) {
   out.close();
 }
 
-bool s21::Graph::GraphIsEmpty() { return size_ == 0; }
+bool Graph::GraphIsEmpty() { return size_ == 0; }
 
 void Graph::ParseSize(std::string line) {
   int size = std::stoi(line);
@@ -111,7 +111,7 @@ void Graph::ParseLine(std::string line, size_t row) {
     throw std::length_error("The matrix has less columns than size");
 }
 
-void s21::Graph::Reset() {
+void Graph::Reset() {
   if (matrix_.size()) matrix_.clear();
   size_ = 0;
 }

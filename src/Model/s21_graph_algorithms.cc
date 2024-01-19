@@ -58,17 +58,17 @@ std::vector<size_t> GraphAlgorithms::BreadthFirstSearch(Graph& graph,
   return result;
 }
 
-size_t s21::GraphAlgorithms::GetShortestPathBetweenVertices(Graph& graph,
-                                                            size_t vertex1,
-                                                            size_t vertex2) {
+size_t GraphAlgorithms::GetShortestPathBetweenVertices(Graph& graph,
+                                                       size_t vertex1,
+                                                       size_t vertex2) {
   if (vertex1 < 1 || vertex2 < 1)
     throw std::invalid_argument("Index of vertex is incorrect");
   if (vertex1 > graph.GetSize() || vertex2 > graph.GetSize())
     throw std::out_of_range("Index of vertex is out of range");
   std::vector<size_t> min_length(graph.GetSize(),
                                  std::numeric_limits<size_t>::max());
-  size_t start = static_cast<size_t>(vertex1) - 1;
-  size_t finish = static_cast<size_t>(vertex2) - 1;
+  size_t start = vertex1 - 1;
+  size_t finish = vertex2 - 1;
   min_length[start] = 0;
   Queue<size_t> queue;
   queue.Push(start);
@@ -87,8 +87,8 @@ size_t s21::GraphAlgorithms::GetShortestPathBetweenVertices(Graph& graph,
   return min_length[finish];
 }
 
-std::vector<std::vector<size_t>>
-s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(Graph& graph) {
+GraphAlgorithms::MatrixAdjacency
+GraphAlgorithms::GetShortestPathsBetweenAllVertices(Graph& graph) {
   std::vector<std::vector<size_t>> result = graph.GetData();
   const size_t kMax = std::numeric_limits<size_t>::max();
   for (size_t i = 0; i < graph.GetSize(); ++i) {
@@ -109,7 +109,7 @@ s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(Graph& graph) {
   return result;
 }
 
-std::vector<std::vector<size_t>> GraphAlgorithms::GetLeastSpanningTree(
+GraphAlgorithms::MatrixAdjacency GraphAlgorithms::GetLeastSpanningTree(
     Graph& graph) {
   graph.GetSize();
   return std::vector<std::vector<size_t>>();
@@ -119,7 +119,7 @@ TsmResult GraphAlgorithms::SolveTravelingSalesmanProblem(Graph& graph) {
   size_t count_colony = 1;
   size_t size_colony = 1000;
 
-  s21::AntColony ant_colony(graph, count_colony, size_colony);
+  AntColony ant_colony(graph, count_colony, size_colony);
   TsmResult path = ant_colony.solve();
 
   if (std::isinf(path.distance)) {
@@ -136,11 +136,10 @@ TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemGeneticAlgorithm(
   double possible_mutation = 0.01;
   double possible_crossover = 0.9;
 
-  s21::TournamentSelection selection;
-  s21::OrderedCrossover crossover;
-  s21::ExchangeMutation mutation;
-  s21::GeneticAlgorithmTsp genetic_algorithm(graph, selection, crossover,
-                                             mutation);
+  TournamentSelection selection;
+  OrderedCrossover crossover;
+  ExchangeMutation mutation;
+  GeneticAlgorithmTsp genetic_algorithm(graph, selection, crossover, mutation);
 
   TsmResult path =
       genetic_algorithm.solve(number_generations, population_size,
