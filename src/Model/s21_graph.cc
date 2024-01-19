@@ -17,24 +17,22 @@ void Graph::SetValue(size_t row, size_t column, size_t value) {
   if (row >= size_ || column >= size_) {
     throw std::out_of_range("Cell index is out of range");
   }
-  // if (value < 0) {
-  // 	throw std::invalid_argument("Value must be a natural number");
-  // }
+
   matrix_[row][column] = value;
 }
 
 std::vector<std::vector<size_t>>& Graph::GetData() { return matrix_; }
 
-size_t Graph::GetValue(size_t row, size_t column) {
+size_t Graph::GetValue(size_t row, size_t column) const {
   if (row >= size_ || column >= size_) {
     throw std::out_of_range("Cell index is out of range");
   }
   return matrix_[row][column];
 }
 
-size_t Graph::GetSize() { return size_; }
+size_t Graph::GetSize() const { return size_; }
 
-std::vector<size_t> Graph::GetNeighbors(size_t from) {
+std::vector<size_t> Graph::GetNeighbors(size_t from) const {
   if (from >= size_) {
     throw std::out_of_range("Cell index is out of range");
   }
@@ -75,7 +73,7 @@ void Graph::LoadGraphFromFile(std::string filename) {
   in.close();
 }
 
-void Graph::ExportGraphToDot(std::string filename) {
+void Graph::ExportGraphToDot(std::string filename) const {
   std::ofstream out;
   out.open(filename);
   if (out.is_open()) {
@@ -92,7 +90,7 @@ void Graph::ExportGraphToDot(std::string filename) {
   out.close();
 }
 
-bool s21::Graph::GraphIsEmpty() { return size_ == 0; }
+bool s21::Graph::GraphIsEmpty() const { return size_ == 0; }
 
 void Graph::ParseSize(std::string line) {
   int size = std::stoi(line);
@@ -116,7 +114,7 @@ void Graph::ParseLine(std::string line, size_t row) {
     throw std::length_error("The matrix has less columns than size");
 }
 
-void Graph::print() {
+void Graph::print() const {
   std::cout << "Матрица смежности: " << std::endl;
   for (size_t i = 0; i < size_; ++i) {
     for (size_t j = 0; j < size_; ++j) {
