@@ -16,7 +16,7 @@ class AntColony {
   const double kPheromonInitialLevel = 1;
 
   AntColony(Graph &graph, size_t count_colony, size_t size_colony);
-  TsmResult solve();
+  TsmResult Solve();
 
  private:
   Graph &graph_;
@@ -26,7 +26,7 @@ class AntColony {
   std::random_device rd_{};
   std::mt19937 gen_{rd_()};
 
-  void createAntColony();
+  void CreateAntColony();
 };
 
 };  // namespace s21

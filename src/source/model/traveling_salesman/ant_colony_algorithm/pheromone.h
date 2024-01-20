@@ -11,15 +11,15 @@ namespace s21 {
 class Pheromones {
  public:
   Pheromones(size_t size, double initial_level, double evaporation_rate);
-  double getValue(size_t from, size_t to);
-  void update(TsmResult &path, double pheromoneQuantiy);
+  double GetValue(size_t from, size_t to);
+  void Update(TsmResult &path, double pheromoneQuantiy);
 
  private:
   std::vector<std::vector<double>> pheromones_;
   double evaporation_rate_;
 
-  void evapration();
-  void lay(std::vector<size_t> path, double pheromonAverage);
+  void Evapration();
+  void Lay(std::vector<size_t> path, double pheromonAverage);
 };
 
 };  // namespace s21

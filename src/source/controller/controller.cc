@@ -1,5 +1,6 @@
 #include "controller.h"
-using namespace s21;
+
+namespace s21 {
 
 void Controller::LoadGraphFromFile(std::string filename) {
   graph_.LoadGraphFromFile(filename);
@@ -40,3 +41,4 @@ TsmResult s21::Controller::SolveTravelingSalesmanProblemSimulatedAnnealing() {
 }
 
 bool Controller::GraphIsEmpty() { return graph_.GraphIsEmpty(); }
+}  // namespace s21

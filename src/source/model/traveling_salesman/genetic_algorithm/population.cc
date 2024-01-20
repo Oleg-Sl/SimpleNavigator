@@ -1,15 +1,15 @@
+#include "population.h"
+
 #include <algorithm>
 #include <limits>
 #include <random>
-
-#include "population.h"
 
 namespace s21 {
 
 Population::Population() : populations_(){};
 
 Population::Population(std::vector<size_t> &vertices, size_t size_population) {
-  createPopulation(vertices, size_population);
+  CreatePopulation(vertices, size_population);
 }
 
 Population::Population(const Population &other) {
@@ -38,9 +38,9 @@ Population &Population::operator=(const Population &&other) {
   return *this;
 }
 
-size_t Population::getSize() const { return populations_.size(); }
+size_t Population::GetSize() const { return populations_.size(); }
 
-const Chromosome &Population::getBestChromosome() const {
+const Chromosome &Population::GetBestChromosome() const {
   auto it = std::min_element(
       populations_.begin(), populations_.end(),
       [](const Chromosome &chromosome1, const Chromosome &chromosome2) {
@@ -50,7 +50,7 @@ const Chromosome &Population::getBestChromosome() const {
   return *it;
 }
 
-Chromosome &Population::getChromosome(size_t index) {
+Chromosome &Population::GetChromosome(size_t index) {
   if (index >= populations_.size()) {
     throw std::out_of_range("Index out of range");
   }
@@ -58,19 +58,19 @@ Chromosome &Population::getChromosome(size_t index) {
   return populations_[index];
 }
 
-void Population::computeFitness(Graph &dictances) {
+void Population::ComputeFitness(Graph &dictances) {
   for (auto &chromosome : populations_) {
-    chromosome.updateDistance(dictances);
+    chromosome.UpdateDistance(dictances);
   }
 }
 
-void Population::clear() { populations_.clear(); }
+void Population::Clear() { populations_.clear(); }
 
-void Population::addChromosome(Chromosome &&chromosome) {
+void Population::AddChromosome(Chromosome &&chromosome) {
   populations_.push_back(std::move(chromosome));
 }
 
-void Population::createPopulation(const std::vector<size_t> &vertices,
+void Population::CreatePopulation(const std::vector<size_t> &vertices,
                                   size_t size_population) {
   std::random_device rd{};
   std::mt19937 gen{rd()};

@@ -9,18 +9,18 @@ namespace s21 {
 
 class MutationStrategy {
  public:
-  virtual void execute(Population &population, double probability_mutation) = 0;
+  virtual void Execute(Population &population, double probability_mutation) = 0;
 };
 
 class ExchangeMutation : public MutationStrategy {
  public:
-  void execute(Population &population, double probability_mutation = 0.01);
+  void Execute(Population &population, double probability_mutation = 0.01);
 
  private:
   std::random_device rd_{};
   std::mt19937 gen_{rd_()};
 
-  void mutation(Chromosome &chromosome);
+  void Mutation(Chromosome &chromosome);
 };
 
 };  // namespace s21

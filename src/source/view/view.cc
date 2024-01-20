@@ -1,6 +1,6 @@
-#include <iostream>
-
 #include "view.h"
+
+#include <iostream>
 using namespace s21;
 
 void View::Start() {
@@ -178,11 +178,11 @@ void View::CompareMethodsSolvingTravelingSalesmanProblem() {
     try {
       number = stoi(str);
       std::chrono::milliseconds time_ant_colony =
-          measureTime(AlgoritmSolveTSM::kAntColony, number);
+          MeasureTime(AlgoritmSolveTSM::kAntColony, number);
       std::chrono::milliseconds time_genetic =
-          measureTime(AlgoritmSolveTSM::kGenetic, number);
+          MeasureTime(AlgoritmSolveTSM::kGenetic, number);
       std::chrono::milliseconds time_simulated_annealing =
-          measureTime(AlgoritmSolveTSM::kSimulatedAnnealing, number);
+          MeasureTime(AlgoritmSolveTSM::kSimulatedAnnealing, number);
 
       std::cout << "Running time algorithms: " << std::endl;
       std::cout << "Ant colony: " << time_ant_colony.count() << " ms"
@@ -238,7 +238,7 @@ void View::PrintMatrix(std::vector<std::vector<size_t>> matrix) {
 
 bool View::CheckGraph() { return controller_.GraphIsEmpty(); }
 
-std::chrono::milliseconds View::measureTime(AlgoritmSolveTSM algorithm,
+std::chrono::milliseconds View::MeasureTime(AlgoritmSolveTSM algorithm,
                                             size_t number) {
   auto begin = std::chrono::steady_clock::now();
   for (size_t i = 0; i < number; ++i) {

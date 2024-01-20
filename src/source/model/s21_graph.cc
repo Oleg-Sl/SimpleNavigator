@@ -1,11 +1,11 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include "s21_graph.h"
+
 #include <fstream>
 #include <iomanip>
 #include <stdexcept>
 
-#include "s21_graph.h"
-
-using namespace s21;
+namespace s21 {
 
 Graph::Graph(size_t size)
     : matrix_(
@@ -120,3 +120,4 @@ void Graph::Reset() {
   if (matrix_.size()) matrix_.clear();
   size_ = 0;
 }
+}  // namespace s21

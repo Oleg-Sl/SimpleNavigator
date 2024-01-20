@@ -26,7 +26,7 @@ class View {
   void PrintVector(std::vector<size_t> vector);
   void PrintMatrix(std::vector<std::vector<size_t>> matrix);
   bool CheckGraph();
-  std::chrono::milliseconds measureTime(AlgoritmSolveTSM algorithm,
+  std::chrono::milliseconds MeasureTime(AlgoritmSolveTSM algorithm,
                                         size_t number);
 };
 

@@ -15,22 +15,22 @@ struct Range {
 
 class CrossoverStrategy {
  public:
-  virtual void execute(Population &population, double probability_crossing) = 0;
+  virtual void Execute(Population &population, double probability_crossing) = 0;
 };
 
 class OrderedCrossover : public CrossoverStrategy {
  public:
-  void execute(Population &population, double probability_crossing = 0.9);
+  void Execute(Population &population, double probability_crossing = 0.9);
 
  private:
   std::random_device rd_{};
   std::mt19937 gen_{rd_()};
 
-  void cross(std::vector<size_t> &genes1, std::vector<size_t> &genes2);
-  void exchangeGenes(std::vector<size_t> &genes1, std::vector<size_t> &genes2,
+  void Cross(std::vector<size_t> &genes1, std::vector<size_t> &genes2);
+  void ExchangeGenes(std::vector<size_t> &genes1, std::vector<size_t> &genes2,
                      Range &range);
-  Range generateRandomRange(size_t max_size);
-  void inheritGenes(std::vector<size_t> &new_genes,
+  Range GenerateRandomRange(size_t max_size);
+  void InheritGenes(std::vector<size_t> &new_genes,
                     std::vector<size_t> &old_genes, Range &range);
 };
 

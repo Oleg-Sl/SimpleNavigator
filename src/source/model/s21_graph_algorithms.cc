@@ -1,6 +1,7 @@
+#include "s21_graph_algorithms.h"
+
 #include "libs/s21_queue.h"
 #include "libs/s21_stack.h"
-#include "s21_graph_algorithms.h"
 #include "traveling_salesman/ant_colony_algorithm/ant_colony_solver.h"
 #include "traveling_salesman/genetic_algorithm/crossover.h"
 #include "traveling_salesman/genetic_algorithm/genetic_solver.h"
@@ -8,7 +9,7 @@
 #include "traveling_salesman/genetic_algorithm/selection.h"
 #include "traveling_salesman/simulated_annealing/simulated_annealing.h"
 
-using namespace s21;
+namespace s21 {
 
 std::vector<size_t> GraphAlgorithms::DepthFirstSearch(Graph& graph,
                                                       size_t start_vertex) {
@@ -161,7 +162,7 @@ TsmResult GraphAlgorithms::SolveTravelingSalesmanProblem(Graph& graph) {
   size_t size_colony = 1000;
 
   AntColony ant_colony(graph, count_colony, size_colony);
-  TsmResult path = ant_colony.solve();
+  TsmResult path = ant_colony.Solve();
 
   if (std::isinf(path.distance)) {
     throw std::invalid_argument("Path does not exist");
@@ -183,7 +184,7 @@ TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemGeneticAlgorithm(
   GeneticAlgorithmTsp genetic_algorithm(graph, selection, crossover, mutation);
 
   TsmResult path =
-      genetic_algorithm.solve(number_generations, population_size,
+      genetic_algorithm.Solve(number_generations, population_size,
                               possible_mutation, possible_crossover);
 
   if (std::isinf(path.distance)) {
@@ -199,3 +200,5 @@ TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemSimulatedAnnealing(
 
   return simulated_annealing.Solve();
 }
+
+}  // namespace s21

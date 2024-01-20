@@ -14,7 +14,7 @@ struct Chromosome {
   std::vector<size_t> genes;
   double distance;
 
-  void updateDistance(Graph &distances) {
+  void UpdateDistance(Graph &distances) {
     if (genes.size() < 2) {
       throw std::invalid_argument("Chromosome size < 2");
     }

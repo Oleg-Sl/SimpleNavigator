@@ -18,9 +18,9 @@ class Ant {
 
   Ant(Graph &distances, std::mt19937 &gen, double pheromon_quantiy);
 
-  TsmResult &getPath();
-  double getPheromonQuantiy();
-  bool move(Pheromones &pheromones);
+  TsmResult &GetPath();
+  double GetPheromonQuantiy();
+  bool Move(Pheromones &pheromones);
 
  private:
   Graph &distances_;
@@ -29,12 +29,12 @@ class Ant {
   std::vector<bool> used_vertex_;
   TsmResult path_{};
 
-  size_t getCurrentVertex();
-  std::vector<double> getProbabilities(Pheromones &pheromones,
+  size_t GetCurrentVertex();
+  std::vector<double> GetProbabilities(Pheromones &pheromones,
                                        std::vector<size_t> &neighbors);
-  double getRandomProbability();
-  std::vector<size_t> getVerticesPossibleNeighbors();
-  double calcSummaryWeight(Pheromones &pheromones,
+  double GetRandomProbability();
+  std::vector<size_t> GetVerticesPossibleNeighbors();
+  double CalcSummaryWeight(Pheromones &pheromones,
                            std::vector<size_t> &neighbors);
 };
 

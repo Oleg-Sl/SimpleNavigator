@@ -1,6 +1,6 @@
-#include <iomanip>
-
 #include "pheromone.h"
+
+#include <iomanip>
 
 namespace s21 {
 
@@ -14,17 +14,17 @@ Pheromones::Pheromones(size_t size, double initial_level,
   }
 }
 
-double Pheromones::getValue(size_t from, size_t to) {
+double Pheromones::GetValue(size_t from, size_t to) {
   return pheromones_[from][to];
 }
 
-void Pheromones::update(TsmResult &path, double pheromoneQuantiy) {
+void Pheromones::Update(TsmResult &path, double pheromoneQuantiy) {
   double pheromonAverage = pheromoneQuantiy / path.distance;
-  lay(path.vertices, pheromonAverage);
-  evapration();
+  Lay(path.vertices, pheromonAverage);
+  Evapration();
 }
 
-void Pheromones::lay(std::vector<size_t> path, double pheromonAverage) {
+void Pheromones::Lay(std::vector<size_t> path, double pheromonAverage) {
   for (size_t i = 0; i < path.size() - 1; ++i) {
     size_t index_left = path[i];
     size_t index_right = path[i + 1];
@@ -33,7 +33,7 @@ void Pheromones::lay(std::vector<size_t> path, double pheromonAverage) {
   }
 }
 
-void Pheromones::evapration() {
+void Pheromones::Evapration() {
   for (size_t i = 0; i < pheromones_.size(); ++i) {
     for (size_t j = 0; j < pheromones_.size(); ++j) {
       pheromones_[i][j] *= (1 - evaporation_rate_);

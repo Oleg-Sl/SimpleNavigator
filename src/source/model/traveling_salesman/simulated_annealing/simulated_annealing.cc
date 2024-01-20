@@ -1,6 +1,6 @@
-#include <algorithm>
-
 #include "simulated_annealing.h"
+
+#include <algorithm>
 
 namespace s21 {
 

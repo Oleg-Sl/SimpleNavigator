@@ -1,30 +1,31 @@
+#include "crossover.h"
+
 #include <algorithm>
 #include <unordered_set>
 
 #include "chromosome.h"
-#include "crossover.h"
 
 namespace s21 {
 
-void OrderedCrossover::execute(Population &population,
+void OrderedCrossover::Execute(Population &population,
                                double probability_crossing) {
   std::uniform_real_distribution<double> dist(0.0, 1.0);
-  std::uniform_int_distribution<size_t> dist_int(1, population.getSize() - 1);
+  std::uniform_int_distribution<size_t> dist_int(1, population.GetSize() - 1);
   size_t offset = dist_int(gen_);
 
-  for (size_t i = 0; i < population.getSize(); i += 1) {
+  for (size_t i = 0; i < population.GetSize(); i += 1) {
     if (dist(gen_) < probability_crossing) {
-      Chromosome &parent1 = population.getChromosome(i);
+      Chromosome &parent1 = population.GetChromosome(i);
       Chromosome &parent2 =
-          population.getChromosome((i + offset) % population.getSize());
-      cross(parent1.genes, parent2.genes);
+          population.GetChromosome((i + offset) % population.GetSize());
+      Cross(parent1.genes, parent2.genes);
     }
   }
 }
 
-void OrderedCrossover::cross(std::vector<size_t> &genes1,
+void OrderedCrossover::Cross(std::vector<size_t> &genes1,
                              std::vector<size_t> &genes2) {
-  Range range = generateRandomRange(genes1.size());
+  Range range = GenerateRandomRange(genes1.size());
   if (range.left == range.right) {
     return;
   }
@@ -32,12 +33,12 @@ void OrderedCrossover::cross(std::vector<size_t> &genes1,
   std::vector<size_t> old_genes1(genes1);
   std::vector<size_t> old_genes2(genes2);
 
-  exchangeGenes(genes1, genes2, range);
-  inheritGenes(genes1, old_genes1, range);
-  inheritGenes(genes2, old_genes2, range);
+  ExchangeGenes(genes1, genes2, range);
+  InheritGenes(genes1, old_genes1, range);
+  InheritGenes(genes2, old_genes2, range);
 }
 
-void OrderedCrossover::exchangeGenes(std::vector<size_t> &genes1,
+void OrderedCrossover::ExchangeGenes(std::vector<size_t> &genes1,
                                      std::vector<size_t> &genes2,
                                      Range &range) {
   if (genes1.size() != genes2.size()) {
@@ -48,7 +49,7 @@ void OrderedCrossover::exchangeGenes(std::vector<size_t> &genes1,
                    genes2.begin() + range.left);
 }
 
-Range OrderedCrossover::generateRandomRange(size_t max_size) {
+Range OrderedCrossover::GenerateRandomRange(size_t max_size) {
   if (max_size == 0) {
     return Range{0, 0};
   }
@@ -60,7 +61,7 @@ Range OrderedCrossover::generateRandomRange(size_t max_size) {
   return Range{std::min(point1, point2), std::max(point1, point2)};
 }
 
-void OrderedCrossover::inheritGenes(std::vector<size_t> &new_genes,
+void OrderedCrossover::InheritGenes(std::vector<size_t> &new_genes,
                                     std::vector<size_t> &old_genes,
                                     Range &range) {
   size_t ind_dst = 0;

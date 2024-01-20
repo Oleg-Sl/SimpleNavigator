@@ -18,17 +18,17 @@ class Population {
   Population& operator=(const Population& other);
   Population& operator=(const Population&& other);
 
-  void addChromosome(Chromosome&& chromosome);
-  const Chromosome& getBestChromosome() const;
-  Chromosome& getChromosome(size_t index);
-  size_t getSize() const;
-  void clear();
-  void computeFitness(Graph& dictances);
+  void AddChromosome(Chromosome&& chromosome);
+  const Chromosome& GetBestChromosome() const;
+  Chromosome& GetChromosome(size_t index);
+  size_t GetSize() const;
+  void Clear();
+  void ComputeFitness(Graph& dictances);
 
  private:
   std::vector<Chromosome> populations_;
 
-  void createPopulation(const std::vector<size_t>& vertices,
+  void CreatePopulation(const std::vector<size_t>& vertices,
                         size_t size_population);
 };
 

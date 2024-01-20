@@ -2,19 +2,19 @@
 
 namespace s21 {
 
-void ExchangeMutation::execute(Population &population,
+void ExchangeMutation::Execute(Population &population,
                                double probability_mutation) {
   std::uniform_real_distribution<double> dist(0.0, 1.0);
 
-  for (size_t i = 0; i < population.getSize(); i += 1) {
+  for (size_t i = 0; i < population.GetSize(); i += 1) {
     if (dist(gen_) < probability_mutation) {
-      Chromosome &chromosome = population.getChromosome(i);
-      mutation(chromosome);
+      Chromosome &chromosome = population.GetChromosome(i);
+      Mutation(chromosome);
     }
   }
 }
 
-void ExchangeMutation::mutation(Chromosome &chromosome) {
+void ExchangeMutation::Mutation(Chromosome &chromosome) {
   std::uniform_int_distribution<int> dist(0, chromosome.genes.size() - 2);
 
   size_t point1 = dist(gen_);

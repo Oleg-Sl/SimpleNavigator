@@ -14,7 +14,7 @@ class GeneticAlgorithmTsp {
  public:
   GeneticAlgorithmTsp(Graph &distances, SelectionStrategy &selection,
                       CrossoverStrategy &crossover, MutationStrategy &mutation);
-  TsmResult solve(size_t number_generations = 10, size_t population_size = 200,
+  TsmResult Solve(size_t number_generations = 10, size_t population_size = 200,
                   double possible_mutation = 0.01,
                   double possible_crossover = 0.9);
 
@@ -24,7 +24,7 @@ class GeneticAlgorithmTsp {
   CrossoverStrategy &crossover_;
   MutationStrategy &mutation_;
 
-  Population createPopulation(size_t population_size) const;
+  Population CreatePopulation(size_t population_size) const;
 };
 
 };  // namespace s21
