@@ -44,8 +44,8 @@ leaks: test
 report: build
 	cmake --build $(BUILD_DIR) --target report
 	./$(BUILD_DIR)/tests/report
-	lcov --capture --directory $(BUILD_DIR)/tests/CMakeFiles/report.dir --output-file s21_coverage.info --exclude "/usr/*"
-	genhtml s21_coverage.info --output-directory s21_lcov_report
+	lcov --capture --directory $(BUILD_DIR)/tests/CMakeFiles/report.dir --output-file $(BUILD_DIR)/s21_coverage.info --exclude "/usr/*"
+	genhtml $(BUILD_DIR)/s21_coverage.info --output-directory s21_lcov_report
 	$(OPEN_FILE) ./s21_lcov_report/index.html
 
 stylecheck: build

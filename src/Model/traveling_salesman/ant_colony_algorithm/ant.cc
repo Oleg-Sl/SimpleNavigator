@@ -17,8 +17,12 @@ Ant::Ant(Graph &distances, std::mt19937 &gen, double pheromon_quantiy)
 bool Ant::move(Pheromones &pheromones) {
   std::vector<size_t> neighbors = getVerticesPossibleNeighbors();
   if (neighbors.empty() && path_.vertices.size() == distances_.GetSize()) {
-    path_.distance +=
-        distances_.GetValue(path_.vertices.back(), path_.vertices.front());
+    size_t distance = distances_.GetValue(path_.vertices.back(), path_.vertices.front());
+    if ((distance == 0 && path_.vertices.back() != path_.vertices.front()) || std::isinf(path_.distance)) {
+      path_.distance = std::numeric_limits<double>::infinity();
+    } else {
+      path_.distance += static_cast<double>(distance);
+    }
     path_.vertices.push_back(path_.vertices.front());
   }
 
@@ -32,9 +36,14 @@ bool Ant::move(Pheromones &pheromones) {
   for (size_t i = 0; i < probabilities.size(); ++i) {
     if (probability <= probabilities[i]) {
       size_t next_vertex = neighbors[i];
-      double distance = distances_.GetValue(getCurrentVertex(), next_vertex);
+      size_t distance = distances_.GetValue(getCurrentVertex(), next_vertex);
       path_.vertices.push_back(next_vertex);
-      path_.distance += distance;
+      if (distance == 0 || std::isinf(path_.distance)) {
+        path_.distance = std::numeric_limits<double>::infinity();
+      } else {
+        path_.distance += static_cast<double>(distance);
+      }
+      // path_.distance += distance == 0 ?  : static_cast<double>(distance);
 
       used_vertex_[next_vertex] = true;
       break;

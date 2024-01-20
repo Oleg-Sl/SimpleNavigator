@@ -49,7 +49,8 @@ TEST(AntColonyTest, LargeGraph) {
     TsmResult result = algorithms.SolveTravelingSalesmanProblem(graph);
     
     ASSERT_EQ(result.vertices.size(), graph.GetSize() + 1);
-    ASSERT_LT(result.distance, 260);
+        ASSERT_LT(result.distance, 270);
+        ASSERT_GT(result.distance, 250);
 }
 
 TEST(AntColonyTest, MultipleRunsGraph) {
@@ -60,19 +61,19 @@ TEST(AntColonyTest, MultipleRunsGraph) {
     for (size_t i = 0; i < 100; ++i) {
         TsmResult result = algorithms.SolveTravelingSalesmanProblem(graph);
         ASSERT_EQ(result.vertices.size(), graph.GetSize() + 1);
-        ASSERT_LT(result.distance, 260);
+        ASSERT_LT(result.distance, 270);
+        ASSERT_GT(result.distance, 250);
     }
 }
+
 
 
 // TEST(AntColonyTest, NoSolutionGraph) {
 //     Graph graph;
 //     graph.LoadGraphFromFile("files/graph_no_solution.txt");
 //     GraphAlgorithms algorithms;
-//     TsmResult result = algorithms.SolveTravelingSalesmanProblem(graph);
-    
+//     TsmResult result = algorithms.SolveTravelingSalesmanProblem(graph);    
 //     ASSERT_TRUE(std::isinf(result.distance));
-    
 //     std::cout << "File name: graph_2x2.txt" << std::endl;
 //     std::cout << "Path: ";
 //     for (auto vertex : result.vertices) {

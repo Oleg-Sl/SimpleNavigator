@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.3)
 project(SimpleNavigatorTests)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -14,22 +14,22 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-
 enable_testing()
 add_executable(${PROJECT_NAME} ${TEST_SOURCES})
 target_link_libraries(${PROJECT_NAME} ${TARGET_GRAPH_LIB})
 target_link_libraries(${PROJECT_NAME} ${TARGET_GRAPH_ALGORITM_LIB})
 target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
 
-
 # Report
-add_executable(report ${TEST_SOURCES})
+SET(CMAKE_CXX_FLAGS "-fprofile-arcs -ftest-coverage")
+SET(CMAKE_C_FLAGS "-fprofile-arcs -ftest-coverage")
+SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
 
-target_link_libraries(report ${TARGET_GRAPH_LIB})
-target_link_libraries(report ${TARGET_GRAPH_ALGORITM_LIB})
+add_executable(report ${TEST_SOURCES} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 target_link_libraries(report GTest::gtest_main)
+# add_link_options("--coverage")
 
+enable_testing()
 include(GoogleTest)
 add_definitions(-DASSETS_DIR="${FILES_DIR}")
 gtest_discover_tests(${PROJECT_NAME})
-gtest_discover_tests(report)

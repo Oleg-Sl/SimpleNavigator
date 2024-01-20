@@ -25,16 +25,23 @@ TsmResult GeneticAlgorithmTsp::solve(size_t number_generations,
 
   for (size_t i = 0; i < number_generations; ++i) {
     population.computeFitness(distances_);
-    population = selection_.execute(population);
-    crossover_.execute(population, possible_crossover);
-    mutation_.execute(population, possible_mutation);
+    
 
     const Chromosome &chromosome = population.getBestChromosome();
     if (chromosome.genes.size() == (distances_.GetSize() + 1) &&
         chromosome.distance < min_path.distance) {
+      // for (auto &el : chromosome.genes) {
+      //   std::cout << el << " ";
+      // }
+      // std::cout << std::endl;
+      // std::cout << "Chromosome distance2: " << chromosome.distance << std::endl;
       min_path.vertices = chromosome.genes;
       min_path.distance = chromosome.distance;
     }
+    population = selection_.execute(population);
+    crossover_.execute(population, possible_crossover);
+    mutation_.execute(population, possible_mutation);
+    
   }
 
   return min_path;

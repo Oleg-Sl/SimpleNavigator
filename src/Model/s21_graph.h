@@ -13,9 +13,11 @@ namespace s21 {
 class Graph {
  public:
   using MatrixAdjacency = std::vector<std::vector<size_t>>;
+
   Graph() = default;
   Graph(size_t size);
   Graph(size_t size, size_t init_value);
+
   void SetValue(size_t row, size_t column, size_t value);
   MatrixAdjacency &GetData();
   size_t GetValue(size_t row, size_t column) const;
@@ -23,8 +25,6 @@ class Graph {
   std::vector<size_t> GetNeighbors(size_t from) const;
   void LoadGraphFromFile(std::string filename);
   void ExportGraphToDot(std::string filename) const;
-  void print() const;
-
   bool GraphIsEmpty() const;
 
  private:
