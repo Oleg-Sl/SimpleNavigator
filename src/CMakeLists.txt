@@ -52,7 +52,6 @@ add_custom_target(format COMMAND clang-format --style=Google -i --verbose ${CLI_
 add_custom_target(stylecheck COMMAND clang-format --style=Google -n --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 add_custom_target(cppcheck COMMAND cppcheck --enable=all --suppress=missingInclude --inconclusive ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 
-add_subdirectory(${MODEL_DIR})
-
 enable_testing()
+add_subdirectory(${MODEL_DIR})
 add_subdirectory(${TESTS_DIR})

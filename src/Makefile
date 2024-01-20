@@ -22,8 +22,8 @@ clean:
 	rm -rf s21_lcov_report
 
 test: build
-	cmake --build $(BUILD_DIR) --target test
-	./$(BUILD_DIR)/tests/test
+	cmake --build $(BUILD_DIR) --target SimpleNavigatorTests
+	./$(BUILD_DIR)/tests/SimpleNavigatorTests
 
 s21_graph.a: build
 	cmake --build $(BUILD_DIR) --target s21_graph

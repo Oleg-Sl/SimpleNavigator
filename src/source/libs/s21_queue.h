@@ -1,5 +1,5 @@
-#ifndef SRC_CONTAINERS_S21_QUEUE_H_
-#define SRC_CONTAINERS_S21_QUEUE_H_
+#ifndef SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_QUEUE_H_
+#define SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_QUEUE_H_
 
 #include "s21_list.h"
 
@@ -49,4 +49,4 @@ class Queue {
 
 }  // namespace s21
 
-#endif  // SRC_CONTAINERS_S21_QUEUE_H_
+#endif  // SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_QUEUE_H_

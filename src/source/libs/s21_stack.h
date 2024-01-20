@@ -1,5 +1,5 @@
-#ifndef SRC_CONTAINERS_S21_STACK_H_
-#define SRC_CONTAINERS_S21_STACK_H_
+#ifndef SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_STACK_H_
+#define SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_STACK_H_
 
 #include "s21_vector.h"
 
@@ -50,4 +50,4 @@ class Stack {
 
 }  // namespace s21
 
-#endif  // SRC_CONTAINERS_S21_STACK_H_
+#endif  // SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_STACK_H_

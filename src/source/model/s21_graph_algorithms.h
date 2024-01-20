@@ -1,5 +1,5 @@
-#ifndef SIMPLE_NAVIGATOR_MODEL_GRAPH_ALGORITHMS_H
-#define SIMPLE_NAVIGATOR_MODEL_GRAPH_ALGORITHMS_H
+#ifndef SIMPLE_NAVIGATOR_SOURCE_MODEL_S21_GRAPH_ALGORITHMS_H_
+#define SIMPLE_NAVIGATOR_SOURCE_MODEL_S21_GRAPH_ALGORITHMS_H_
 
 #include "s21_graph.h"
 #include "traveling_salesman/common/path_structure.h"
@@ -23,4 +23,4 @@ class GraphAlgorithms {
 };
 }  // namespace s21
 
-#endif  // SIMPLE_NAVIGATOR_MODEL_ALGORITHMS_H
+#endif  // SIMPLE_NAVIGATOR_SOURCE_MODEL_S21_GRAPH_ALGORITHMS_H_

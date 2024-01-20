@@ -1,5 +1,5 @@
-﻿#ifndef SRC_CONTAINERS_S21_VECTOR_H_
-#define SRC_CONTAINERS_S21_VECTOR_H_
+#ifndef SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_VECTOR_H_
+#define SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_VECTOR_H_
 
 #include <initializer_list>
 #include <iterator>
@@ -388,4 +388,4 @@ void Vector<T>::MoveData() {
 
 }  // namespace s21
 
-#endif  // SRC_CONTAINERS_S21_VECTOR_H_
+#endif  // SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_VECTOR_H_

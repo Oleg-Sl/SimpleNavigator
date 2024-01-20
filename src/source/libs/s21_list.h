@@ -1,5 +1,5 @@
-﻿#ifndef SRC_CONTAINERS_S21_LIST_H_
-#define SRC_CONTAINERS_S21_LIST_H_
+#ifndef SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_LIST_H_
+#define SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_LIST_H_
 
 #include <initializer_list>
 #include <iterator>
@@ -486,4 +486,4 @@ void List<T>::EmplaceFront(Args&&... args) {
 
 }  // namespace s21
 
-#endif  // SRC_CONTAINERS_S21_LIST_H_
+#endif  // SIMPLE_NAVIGATOR_SOURCE_LIBS_S21_LIST_H_
