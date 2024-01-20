@@ -1,6 +1,6 @@
-#include "../Model/s21_graph.h"
-#include "../Model/s21_graph_algorithms.h"
 #include "common_tests.h"
+#include "model/s21_graph.h"
+#include "model/s21_graph_algorithms.h"
 
 namespace s21 {
 

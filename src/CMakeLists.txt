@@ -21,43 +21,38 @@ set(TARGET_GRAPH_ALGORITM_LIB s21_graph_algorithms)
 
 # Directories
 set(BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-set(CONTAINERS_DIR ${BASE_DIR}/Containers)
-set(CONTROLLER_DIR ${BASE_DIR}/Controller)
-set(MODEL_DIR ${BASE_DIR}/Model)
-set(VIEW_DIR ${BASE_DIR}/View)
-set(TEST_DIR ${BASE_DIR}/tests)
-set(FILES_DIR ${BASE_DIR}/files)
+set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
+set(LIBS_DIR ${SOURCE_DIR}/libs)
+set(CONTROLLER_DIR ${SOURCE_DIR}/controller)
+set(MODEL_DIR ${SOURCE_DIR}/model)
+set(VIEW_DIR ${SOURCE_DIR}/view)
+set(TESTS_DIR ${BASE_DIR}/tests)
+set(ASSETS_DIR ${BASE_DIR}/assets)
 
+set(RELATIVE_HEADER_DIR ${SOURCE_DIR})
 
 # Sources
-file(GLOB_RECURSE CLI_SOURCE ${CONTROLLER_DIR}/*.cc ${VIEW_DIR}/*.cc ${BASE_DIR}/App.cc
+file(GLOB_RECURSE CLI_SOURCE ${CONTROLLER_DIR}/*.cc ${VIEW_DIR}/*.cc ${BASE_DIR}/app.cc
                              ${CONTROLLER_DIR}/*.h  ${VIEW_DIR}/*.h
 )
 file(GLOB_RECURSE LIB_GRAPH_SOURCE ${MODEL_DIR}/s21_graph.cc ${MODEL_DIR}/s21_graph.h)
 file(GLOB_RECURSE LIB_GRAPH_ALGORITHM_SOURCE  ${MODEL_DIR}/s21_graph_algorithms.cc
-                                              ${MODEL_DIR}/traveling_salesman/ant_colony_algorithm/*.cc
-                                              ${MODEL_DIR}/traveling_salesman/genetic_algorithm/*.cc
-                                              ${MODEL_DIR}/s21_graph_algorithms.h
-                                              ${MODEL_DIR}/traveling_salesman/ant_colony_algorithm/*.h
-                                              ${MODEL_DIR}/traveling_salesman/genetic_algorithm/*.h
-                                              ${MODEL_DIR}/traveling_salesman/common/*.h
-                                              ${MODEL_DIR}/traveling_salesman/simulated_annealing/*.cc
-                                              ${MODEL_DIR}/traveling_salesman/simulated_annealing/*.h
-                                              ${CONTAINERS_DIR}/*.h
+                                              ${MODEL_DIR}/traveling_salesman/*.cc
 )
-file(GLOB TEST_SOURCES ${TEST_DIR}/*.cc)
+file(GLOB_RECURSE TEST_SOURCES ${TESTS_DIR}/*.cc)
 
 add_executable(cli ${CLI_SOURCE})
 target_link_libraries(cli ${TARGET_GRAPH_LIB})
 target_link_libraries(cli ${TARGET_GRAPH_ALGORITM_LIB})
 
+target_include_directories(cli PUBLIC ${RELATIVE_HEADER_DIR})
+
 add_custom_target(rep COMMAND g++ -Wall -Wextra -Werror -std=c++17 ../tests/*.cc ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE} -o s21_test -fprofile-arcs -ftest-coverage -lgtest)
 add_custom_target(format COMMAND clang-format --style=Google -i --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 add_custom_target(stylecheck COMMAND clang-format --style=Google -n --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
-# add_custom_target(cppcheck COMMAND cppcheck --enable=all --suppress=missingInclude --inconclusive --check-config ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 add_custom_target(cppcheck COMMAND cppcheck --enable=all --suppress=missingInclude --inconclusive ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 
-add_subdirectory(Model)
+add_subdirectory(${MODEL_DIR})
 
 enable_testing()
-add_subdirectory(tests)
+add_subdirectory(${TESTS_DIR})

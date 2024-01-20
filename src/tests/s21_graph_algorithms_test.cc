@@ -1,15 +1,13 @@
 
-#include "../Model/s21_graph_algorithms.h"
-
-#include <gtest/gtest.h>
-
-#include "../Model/s21_graph.h"
+#include "common_tests.h"
+#include "model/s21_graph.h"
+#include "model/s21_graph_algorithms.h"
 
 namespace s21 {
 
 class TestDepthFirstSearch : public ::testing::Test {
  protected:
-  void SetUp() { graph.LoadGraphFromFile("files/example2.txt"); }
+  void SetUp() { graph.LoadGraphFromFile(kAssetsDir + "example2.txt"); }
 
   Graph graph;
   GraphAlgorithms algorithms;
@@ -44,7 +42,7 @@ TEST_F(TestDepthFirstSearch, test4) {
 
 class TestBreadthFirstSearch : public ::testing::Test {
  protected:
-  void SetUp() { graph.LoadGraphFromFile("files/example2.txt"); }
+  void SetUp() { graph.LoadGraphFromFile(kAssetsDir + "example2.txt"); }
 
   Graph graph;
   GraphAlgorithms algorithms;
@@ -80,7 +78,7 @@ TEST_F(TestBreadthFirstSearch, test4) {
 
 class TestGetShortestPathBetweenVertices : public ::testing::Test {
  protected:
-  void SetUp() { graph.LoadGraphFromFile("files/example3.txt"); }
+  void SetUp() { graph.LoadGraphFromFile(kAssetsDir + "example3.txt"); }
 
   Graph graph;
   GraphAlgorithms algorithms;
@@ -112,7 +110,7 @@ TEST_F(TestGetShortestPathBetweenVertices, test3) {
 
 class TestGetShortestPathsBetweenAllVertices : public ::testing::Test {
  protected:
-  void SetUp() { graph.LoadGraphFromFile("files/example3.txt"); }
+  void SetUp() { graph.LoadGraphFromFile(kAssetsDir + "example3.txt"); }
 
   Graph graph;
   GraphAlgorithms algorithms;

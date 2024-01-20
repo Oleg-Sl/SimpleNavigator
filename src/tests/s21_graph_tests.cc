@@ -1,7 +1,6 @@
-#include <gtest/gtest.h>
-
-#include "../Model/s21_graph.h"
-#include "../Model/s21_graph_algorithms.h"
+#include "common_tests.h"
+#include "model/s21_graph.h"
+#include "model/s21_graph_algorithms.h"
 
 namespace s21 {
 
@@ -54,7 +53,7 @@ TEST(Graph, SetValue) {
 
 TEST(Graph, GetValue) {
   Graph graph;
-  graph.LoadGraphFromFile("files/example3.txt");
+  graph.LoadGraphFromFile(kAssetsDir + "example3.txt");
   size_t row = 9;
   size_t col = 3;
 
@@ -67,7 +66,7 @@ TEST(Graph, GetValue) {
 
 TEST(Graph, Neighbors) {
   Graph graph;
-  graph.LoadGraphFromFile("files/example3.txt");
+  graph.LoadGraphFromFile(kAssetsDir + "example3.txt");
   size_t from = 10;
   ASSERT_THROW(graph.GetNeighbors(from), std::out_of_range);
   from = 1;
@@ -82,9 +81,9 @@ TEST(Graph, Neighbors) {
 
 TEST(Graph, LoadFromFile) {
   Graph graph;
-  ASSERT_THROW(graph.LoadGraphFromFile("files/file_not_exists"),
+  ASSERT_THROW(graph.LoadGraphFromFile(kAssetsDir + "file_not_exists"),
                std::runtime_error);
-  ASSERT_THROW(graph.LoadGraphFromFile("files/invalid_matrix.txt"),
+  ASSERT_THROW(graph.LoadGraphFromFile(kAssetsDir + "invalid_matrix.txt"),
                std::length_error);
 }
 
@@ -92,27 +91,27 @@ TEST(Graph, GraphIsEmpty) {
   Graph graph(0);
   ASSERT_EQ(graph.GraphIsEmpty(), true);
 
-  graph.LoadGraphFromFile("files/example3.txt");
+  graph.LoadGraphFromFile(kAssetsDir + "example3.txt");
   ASSERT_EQ(graph.GraphIsEmpty(), false);
 }
 
 TEST(Graph, ParseLine) {
   Graph graph;
-  ASSERT_THROW(graph.LoadGraphFromFile("files/invalid_matrix2.txt"),
+  ASSERT_THROW(graph.LoadGraphFromFile(kAssetsDir + "invalid_matrix2.txt"),
                std::length_error);
 }
 
 TEST(Graph, ExportToDot) {
   Graph graph;
-  graph.LoadGraphFromFile("files/example2.txt");
+  graph.LoadGraphFromFile(kAssetsDir + "example2.txt");
   EXPECT_NO_THROW(graph.ExportGraphToDot("filename"));
 }
 
 TEST(Graph, Reset) {
   Graph graph;
-  EXPECT_NO_THROW(graph.LoadGraphFromFile("files/example1.txt"));
-  EXPECT_NO_THROW(graph.LoadGraphFromFile("files/example2.txt"));
-  EXPECT_NO_THROW(graph.LoadGraphFromFile("files/example3.txt"));
+  EXPECT_NO_THROW(graph.LoadGraphFromFile(kAssetsDir + "example1.txt"));
+  EXPECT_NO_THROW(graph.LoadGraphFromFile(kAssetsDir + "example2.txt"));
+  EXPECT_NO_THROW(graph.LoadGraphFromFile(kAssetsDir + "example3.txt"));
 }
 
 }  // namespace s21

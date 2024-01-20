@@ -19,6 +19,7 @@ add_executable(${PROJECT_NAME} ${TEST_SOURCES})
 target_link_libraries(${PROJECT_NAME} ${TARGET_GRAPH_LIB})
 target_link_libraries(${PROJECT_NAME} ${TARGET_GRAPH_ALGORITM_LIB})
 target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
+target_include_directories(${PROJECT_NAME} PUBLIC ${RELATIVE_HEADER_DIR})
 
 # Report
 SET(CMAKE_CXX_FLAGS "-fprofile-arcs -ftest-coverage")
@@ -27,9 +28,10 @@ SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
 
 add_executable(report ${TEST_SOURCES} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 target_link_libraries(report GTest::gtest_main)
+target_include_directories(report PUBLIC ${RELATIVE_HEADER_DIR})
 # add_link_options("--coverage")
 
 enable_testing()
 include(GoogleTest)
-add_definitions(-DASSETS_DIR="${FILES_DIR}")
+add_definitions(-DASSETS_DIR="${ASSETS_DIR}")
 gtest_discover_tests(${PROJECT_NAME})
