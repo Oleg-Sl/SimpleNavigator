@@ -132,7 +132,7 @@ std::vector<std::vector<size_t>> GraphAlgorithms::GetLeastSpanningTree(
 
     for (size_t curr : visited) {
       for (size_t i = 0; i < N; ++i) {
-        size_t adj_weight = graph.GetData()[curr][i];
+        size_t adj_weight = graph.GetValue(curr, i);
         if (adj_weight <= min_weight && adj_weight != 0 && unvisited.count(i)) {
           min_weight = adj_weight;
           min_index = {curr, i};
