@@ -50,7 +50,7 @@ target_include_directories(cli PUBLIC ${RELATIVE_HEADER_DIR})
 add_custom_target(rep COMMAND g++ -Wall -Wextra -Werror -std=c++17 ../tests/*.cc ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE} -o s21_test -fprofile-arcs -ftest-coverage -lgtest)
 add_custom_target(format COMMAND clang-format --style=Google -i --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 add_custom_target(stylecheck COMMAND clang-format --style=Google -n --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
-add_custom_target(cppcheck COMMAND cppcheck --enable=all --suppress=missingInclude --inconclusive ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
+add_custom_target(cppcheck COMMAND cppcheck --language=c++ --enable=all --suppress=missingInclude --inconclusive ${TEST_SOURCES} ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 
 enable_testing()
 add_subdirectory(${MODEL_DIR})

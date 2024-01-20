@@ -1,7 +1,7 @@
 BUILD_DIR = build
 DOCS_DIR = docs
 TEXI2DVI = texi2dvi
-
+TEST_EXE = SimpleNavigatorTests
 
 OS = $(shell uname -s)
 MACOS = Darwin
@@ -22,8 +22,8 @@ clean:
 	rm -rf s21_lcov_report
 
 test: build
-	cmake --build $(BUILD_DIR) --target SimpleNavigatorTests
-	./$(BUILD_DIR)/tests/SimpleNavigatorTests
+	cmake --build $(BUILD_DIR) --target $(TEST_EXE)
+	./$(BUILD_DIR)/tests/$(TEST_EXE)
 
 s21_graph.a: build
 	cmake --build $(BUILD_DIR) --target s21_graph
@@ -39,7 +39,7 @@ cli: build
 	./$(BUILD_DIR)/cli
 
 leaks: test
-	$(MEMORY_TEST) $(BUILD_DIR)/tests/test --gtest_filter=-*.Throw*
+	$(MEMORY_TEST) $(BUILD_DIR)/tests/$(TEST_EXE) --gtest_filter=-*.Throw*
 
 report: build
 	cmake --build $(BUILD_DIR) --target report
