@@ -9,22 +9,23 @@ namespace s21 {
 class View {
  public:
   enum class AlgoritmSolveTSM { kAntColony, kGenetic, kSimulatedAnnealing };
+  enum class MatrixFunctionsType { kShortestPaths, kLeastSpanningTree };
+  enum class FirstSearchType { kBreadth, kDepth };
+
   View(Controller& controller) : controller_(controller) {}
   void Start();
 
  private:
   Controller controller_;
   void LoadGraphFromFile();
-  void FirstSearch(std::string type);
+  void FirstSearch(FirstSearchType type);
   void GetShortestPathBetweenVertices();
-  void MatrixFunctions(std::string type);
-  void SolveTravelingSalesmanProblem();
-  void SolveTravelingSalesmanProblemGeneticAlgorithm();
-  void SolveTravelingSalesmanProblemSimulatedAnnealing();
+  void MatrixFunctions(MatrixFunctionsType type);
+  void SolveTravelingSalesmanProblem(AlgoritmSolveTSM type);
   void CompareMethodsSolvingTravelingSalesmanProblem();
   void Menu();
-  void PrintVector(std::vector<size_t> vector);
-  void PrintMatrix(std::vector<std::vector<size_t>> matrix);
+  void PrintVector(const std::vector<size_t>& vector);
+  void PrintMatrix(const std::vector<std::vector<size_t>>& matrix);
   bool CheckGraph();
   std::chrono::milliseconds MeasureTime(AlgoritmSolveTSM algorithm,
                                         size_t number);

@@ -164,10 +164,6 @@ TsmResult GraphAlgorithms::SolveTravelingSalesmanProblem(Graph& graph) {
   AntColony ant_colony(graph, count_colony, size_colony);
   TsmResult path = ant_colony.Solve();
 
-  if (std::isinf(path.distance)) {
-    throw std::invalid_argument("Path does not exist");
-  }
-
   return path;
 }
 
@@ -186,10 +182,6 @@ TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemGeneticAlgorithm(
   TsmResult path =
       genetic_algorithm.Solve(number_generations, population_size,
                               possible_mutation, possible_crossover);
-
-  if (std::isinf(path.distance)) {
-    throw std::invalid_argument("Path does not exist");
-  }
 
   return path;
 }

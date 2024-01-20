@@ -1,7 +1,9 @@
 #include "view.h"
 
+#include <cmath>
 #include <iostream>
-using namespace s21;
+
+namespace s21 {
 
 void View::Start() {
   bool quit_not_activated = true;
@@ -16,28 +18,28 @@ void View::Start() {
           LoadGraphFromFile();
           break;
         case 2:
-          FirstSearch("Breadth");
+          FirstSearch(FirstSearchType::kBreadth);
           break;
         case 3:
-          FirstSearch("Depth");
+          FirstSearch(FirstSearchType::kDepth);
           break;
         case 4:
           GetShortestPathBetweenVertices();
           break;
         case 5:
-          MatrixFunctions("ShortestPaths");
+          MatrixFunctions(MatrixFunctionsType::kShortestPaths);
           break;
         case 6:
-          MatrixFunctions("SpanningTree");
+          MatrixFunctions(MatrixFunctionsType::kLeastSpanningTree);
           break;
         case 7:
-          SolveTravelingSalesmanProblem();
+          SolveTravelingSalesmanProblem(AlgoritmSolveTSM::kAntColony);
           break;
         case 8:
-          SolveTravelingSalesmanProblemGeneticAlgorithm();
+          SolveTravelingSalesmanProblem(AlgoritmSolveTSM::kGenetic);
           break;
         case 9:
-          SolveTravelingSalesmanProblemSimulatedAnnealing();
+          SolveTravelingSalesmanProblem(AlgoritmSolveTSM::kSimulatedAnnealing);
           break;
         case 10:
           CompareMethodsSolvingTravelingSalesmanProblem();
@@ -62,7 +64,7 @@ void View::LoadGraphFromFile() {
   controller_.LoadGraphFromFile(path);
 }
 
-void View::FirstSearch(std::string type) {
+void View::FirstSearch(FirstSearchType type) {
   if (CheckGraph()) {
     std::cout << "First load graph!\n";
   } else {
@@ -71,7 +73,7 @@ void View::FirstSearch(std::string type) {
     std::cin >> vertex;
     try {
       size_t start = static_cast<size_t>(stoi(vertex));
-      std::vector<size_t> result = type == "Breadth"
+      std::vector<size_t> result = type == FirstSearchType::kBreadth
                                        ? controller_.BreadthFirstSearch(start)
                                        : controller_.DepthFirstSearch(start);
       PrintVector(result);
@@ -103,65 +105,46 @@ void View::GetShortestPathBetweenVertices() {
   }
 }
 
-void View::MatrixFunctions(std::string type) {
+void View::MatrixFunctions(MatrixFunctionsType type) {
   if (CheckGraph()) {
     std::cout << "First load graph!\n";
   } else {
     std::vector<std::vector<size_t>> result =
-        type == "ShortestPaths"
+        type == MatrixFunctionsType::kShortestPaths
             ? controller_.GetShortestPathsBetweenAllVertices()
             : controller_.GetLeastSpanningTree();
     PrintMatrix(result);
   }
 }
 
-void View::SolveTravelingSalesmanProblem() {
+void View::SolveTravelingSalesmanProblem(AlgoritmSolveTSM type) {
   if (CheckGraph()) {
     std::cout << "First load graph!\n";
-  } else {
-    try {
-      TsmResult result = controller_.SolveTravelingSalesmanProblem();
-      std::cout << "Path: ";
-      PrintVector(result.vertices);
-      std::cout << "Distance: " << result.distance << std::endl;
-    } catch (const std::exception& ex) {
-      std::cout << "No solution to the traveling salesman problem found"
-                << std::endl;
-    }
+    return;
   }
-}
 
-void View::SolveTravelingSalesmanProblemGeneticAlgorithm() {
-  if (CheckGraph()) {
-    std::cout << "First load graph!\n";
-  } else {
-    try {
-      TsmResult result =
-          controller_.SolveTravelingSalesmanProblemGeneticAlgorithm();
-      std::cout << "Path: ";
-      PrintVector(result.vertices);
-      std::cout << "Distance: " << result.distance << std::endl;
-    } catch (const std::exception& ex) {
-      std::cout << "No solution to the traveling salesman problem found"
-                << std::endl;
-    }
+  TsmResult result;
+  switch (type) {
+    case AlgoritmSolveTSM::kAntColony:
+      result = controller_.SolveTravelingSalesmanProblem();
+      break;
+    case AlgoritmSolveTSM::kGenetic:
+      result = controller_.SolveTravelingSalesmanProblemGeneticAlgorithm();
+      break;
+    case AlgoritmSolveTSM::kSimulatedAnnealing:
+      result = controller_.SolveTravelingSalesmanProblemSimulatedAnnealing();
+      break;
+    default:
+      break;
   }
-}
 
-void View::SolveTravelingSalesmanProblemSimulatedAnnealing() {
-  if (CheckGraph()) {
-    std::cout << "First load graph!\n";
+  if (std::isinf(result.distance)) {
+    std::cout << "No solution to the traveling salesman problem found"
+              << std::endl;
   } else {
-    try {
-      TsmResult result =
-          controller_.SolveTravelingSalesmanProblemSimulatedAnnealing();
-      std::cout << "Path: ";
-      PrintVector(result.vertices);
-      std::cout << "Distance: " << result.distance << std::endl;
-    } catch (const std::exception& ex) {
-      std::cout << "No solution to the traveling salesman problem found"
-                << std::endl;
-    }
+    std::cout << "Path: ";
+    PrintVector(result.vertices);
+    std::cout << "Distance: " << result.distance << std::endl;
   }
 }
 
@@ -175,26 +158,20 @@ void View::CompareMethodsSolvingTravelingSalesmanProblem() {
     std::cin >> str;
 
     size_t number;
-    try {
-      number = stoi(str);
-      std::chrono::milliseconds time_ant_colony =
-          MeasureTime(AlgoritmSolveTSM::kAntColony, number);
-      std::chrono::milliseconds time_genetic =
-          MeasureTime(AlgoritmSolveTSM::kGenetic, number);
-      std::chrono::milliseconds time_simulated_annealing =
-          MeasureTime(AlgoritmSolveTSM::kSimulatedAnnealing, number);
+    number = stoi(str);
+    std::chrono::milliseconds time_ant_colony =
+        MeasureTime(AlgoritmSolveTSM::kAntColony, number);
+    std::chrono::milliseconds time_genetic =
+        MeasureTime(AlgoritmSolveTSM::kGenetic, number);
+    std::chrono::milliseconds time_simulated_annealing =
+        MeasureTime(AlgoritmSolveTSM::kSimulatedAnnealing, number);
 
-      std::cout << "Running time algorithms: " << std::endl;
-      std::cout << "Ant colony: " << time_ant_colony.count() << " ms"
-                << std::endl;
-      std::cout << "Genetic:    " << time_genetic.count() << " ms" << std::endl;
-      std::cout << "Simulated annealing:    "
-                << time_simulated_annealing.count() << " ms" << std::endl;
-    } catch (const std::exception& ex) {
-      std::cout << "Error: " << ex.what() << std::endl;
-      std::cout << "No solution to the traveling salesman problem found"
-                << std::endl;
-    }
+    std::cout << "Running time algorithms: " << std::endl;
+    std::cout << "Ant colony: " << time_ant_colony.count() << " ms"
+              << std::endl;
+    std::cout << "Genetic:    " << time_genetic.count() << " ms" << std::endl;
+    std::cout << "Simulated annealing:    " << time_simulated_annealing.count()
+              << " ms" << std::endl;
   }
 }
 
@@ -220,14 +197,14 @@ void View::Menu() {
   std::cout << "_____________________________________________\n";
 }
 
-void View::PrintVector(std::vector<size_t> vector) {
+void View::PrintVector(const std::vector<size_t>& vector) {
   for (size_t i = 0; i < vector.size(); ++i) {
     std::cout << vector[i] + 1 << " ";
   }
   std::cout << std::endl;
 }
 
-void View::PrintMatrix(std::vector<std::vector<size_t>> matrix) {
+void View::PrintMatrix(const std::vector<std::vector<size_t>>& matrix) {
   for (size_t i = 0; i < matrix.size(); ++i) {
     for (size_t j = 0; j < matrix.size(); ++j) {
       std::cout << matrix[i][j] << " ";
@@ -260,3 +237,5 @@ std::chrono::milliseconds View::MeasureTime(AlgoritmSolveTSM algorithm,
   auto end = std::chrono::steady_clock::now();
   return std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
 }
+
+}  // namespace s21
