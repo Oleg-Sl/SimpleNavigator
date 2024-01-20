@@ -1,6 +1,8 @@
 #ifndef SIMPLE_NAVIGATOR_SOURCE_MODEL_S21_GRAPH_H_
 #define SIMPLE_NAVIGATOR_SOURCE_MODEL_S21_GRAPH_H_
 
+#include <cstddef>
+#include <string>
 #include <vector>
 
 namespace s21 {
