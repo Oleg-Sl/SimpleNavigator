@@ -41,4 +41,4 @@ void Pheromones::Evapration() {
   }
 }
 
-};  // namespace s21
+}  // namespace s21

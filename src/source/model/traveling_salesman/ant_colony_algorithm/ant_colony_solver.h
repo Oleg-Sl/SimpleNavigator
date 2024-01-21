@@ -29,6 +29,6 @@ class AntColony {
   void CreateAntColony();
 };
 
-};  // namespace s21
+}  // namespace s21
 
 #endif  // SIMPLE_NAVIGATOR_SOURCE_MODEL_TRAVELING_SALESMAN_ANT_COLONY_ALGORITHM_ANT_COLONY_SOLVER_H_

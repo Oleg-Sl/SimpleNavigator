@@ -29,4 +29,4 @@ void ExchangeMutation::Mutation(Chromosome &chromosome) {
   }
 }
 
-};  // namespace s21
+}  // namespace s21

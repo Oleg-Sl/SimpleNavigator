@@ -52,4 +52,4 @@ std::set<size_t> TournamentSelection::GenerateUniqueRandomNumbers(
   return numbers;
 }
 
-};  // namespace s21
+}  // namespace s21

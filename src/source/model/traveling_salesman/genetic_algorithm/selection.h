@@ -30,6 +30,6 @@ private:
                                  const std::set<size_t> &participant_indexes);
 };
 
-}; // namespace s21
+} // namespace s21
 
 #endif // SIMPLE_NAVIGATOR_SOURCE_MODEL_TRAVELING_SALESMAN_GENETIC_ALGORITHM_SELECTION_H_

@@ -120,4 +120,4 @@ double Ant::CalcSummaryWeight(const Pheromones &pheromones,
   return summaryWeight;
 }
 
-};  // namespace s21
+}  // namespace s21

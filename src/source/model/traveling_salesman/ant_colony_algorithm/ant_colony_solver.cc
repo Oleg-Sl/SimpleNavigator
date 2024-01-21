@@ -42,4 +42,4 @@ void AntColony::CreateAntColony() {
   }
 }
 
-};  // namespace s21
+}  // namespace s21

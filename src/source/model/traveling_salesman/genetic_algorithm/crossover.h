@@ -34,6 +34,6 @@ private:
                     std::vector<size_t> &old_genes, const Range &range);
 };
 
-}; // namespace s21
+} // namespace s21
 
 #endif // SIMPLE_NAVIGATOR_SOURCE_MODEL_TRAVELING_SALESMAN_GENETIC_ALGORITHM_CROSSOVER_H_

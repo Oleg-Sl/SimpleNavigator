@@ -2,6 +2,7 @@
 #define SIMPLE_NAVIGATOR_SOURCE_VIEW_VIEW_H_
 
 #include <chrono>
+#include <cstddef>
 
 #include "controller/controller.h"
 
@@ -27,6 +28,7 @@ class View {
   void PrintVector(const std::vector<size_t>& vector);
   void PrintMatrix(const std::vector<std::vector<size_t>>& matrix);
   bool CheckGraph();
+  size_t InputNumber();
   std::chrono::milliseconds MeasureTime(AlgoritmSolveTSM algorithm,
                                         size_t number);
 };

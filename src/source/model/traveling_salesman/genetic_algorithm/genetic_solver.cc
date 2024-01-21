@@ -12,7 +12,7 @@ GeneticAlgorithmTsp::GeneticAlgorithmTsp(Graph &distances,
     : distances_(distances),
       selection_(selection),
       crossover_(crossover),
-      mutation_(mutation){};
+      mutation_(mutation) {}
 
 TsmResult GeneticAlgorithmTsp::Solve(size_t number_generations,
                                      size_t population_size,
@@ -50,4 +50,4 @@ Population GeneticAlgorithmTsp::CreatePopulation(size_t population_size) const {
   return Population{vertices, population_size};
 }
 
-};  // namespace s21
+}  // namespace s21

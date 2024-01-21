@@ -38,6 +38,6 @@ class Ant {
                            std::vector<size_t> &neighbors);
 };
 
-};  // namespace s21
+}  // namespace s21
 
 #endif  // SIMPLE_NAVIGATOR_SOURCE_MODEL_TRAVELING_SALESMAN_ANT_COLONY_ALGORITHM_ANT_H_

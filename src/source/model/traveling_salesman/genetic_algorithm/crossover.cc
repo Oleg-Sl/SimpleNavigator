@@ -83,4 +83,4 @@ void OrderedCrossover::InheritGenes(std::vector<size_t> &new_genes,
   }
 }
 
-};  // namespace s21
+}  // namespace s21

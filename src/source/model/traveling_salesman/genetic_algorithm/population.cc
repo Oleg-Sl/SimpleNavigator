@@ -6,7 +6,7 @@
 
 namespace s21 {
 
-Population::Population() : populations_(){};
+Population::Population() : populations_() {}
 
 Population::Population(const std::vector<size_t> &vertices,
                        size_t size_population) {

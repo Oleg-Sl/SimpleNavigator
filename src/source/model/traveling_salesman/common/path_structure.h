@@ -11,6 +11,6 @@ struct TsmResult {
   double distance;
 };
 
-};  // namespace s21
+}  // namespace s21
 
 #endif  // SIMPLE_NAVIGATOR_SOURCE_MODEL_TRAVELING_SALESMAN_COMMON_PATH_STRUCTURE_H_

@@ -56,13 +56,11 @@ void Graph::LoadGraphFromFile(std::string filename) {
   if (in.is_open()) {
     Reset();
     std::string line;
-    bool first_line = true;
+    std::getline(in, line);
+    ParseSize(line);
     size_t row = 0;
     while (std::getline(in, line)) {
-      if (first_line) {
-        ParseSize(line);
-        first_line = false;
-      } else if (!line.empty()) {
+      if (!line.empty()) {
         if (row >= size_) {
           Reset();
           throw std::out_of_range("The matrix is wrong");
