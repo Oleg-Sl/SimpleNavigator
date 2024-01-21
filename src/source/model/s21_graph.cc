@@ -102,10 +102,8 @@ bool s21::Graph::GraphIsEmpty() const { return size_ == 0; }
 
 void Graph::ParseSize(std::string line) {
   int size = std::stoi(line);
-  if (size == 0)
-    throw std::invalid_argument("The matrix has size zero");
-  if (size < 0)
-    throw std::invalid_argument("The matrix has incorrect size");
+  if (size == 0) throw std::invalid_argument("The matrix has size zero");
+  if (size < 0) throw std::invalid_argument("The matrix has incorrect size");
   size_ = size;
 }
 
@@ -116,8 +114,7 @@ void Graph::ParseLine(std::string line, size_t row) {
   matrix_.push_back(r);
   std::string token;
   while (ss >> token) {
-    if (column >= size_)
-      throw std::out_of_range("The matrix is wrong");
+    if (column >= size_) throw std::out_of_range("The matrix is wrong");
     matrix_[row].push_back(std::stoi(token));
     ++column;
   }
@@ -128,8 +125,7 @@ void Graph::ParseLine(std::string line, size_t row) {
 }
 
 void Graph::Reset() {
-  if (matrix_.size())
-    matrix_.clear();
+  if (matrix_.size()) matrix_.clear();
   size_ = 0;
 }
-} // namespace s21
+}  // namespace s21
