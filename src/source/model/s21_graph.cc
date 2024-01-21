@@ -3,8 +3,8 @@
 
 #include <fstream>
 #include <iomanip>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 namespace s21 {
 
@@ -26,7 +26,7 @@ void Graph::SetValue(size_t row, size_t column, size_t value) {
   matrix_[row][column] = value;
 }
 
-Graph::MatrixAdjacency& Graph::GetData() { return matrix_; }
+Graph::MatrixAdjacency &Graph::GetData() { return matrix_; }
 
 size_t Graph::GetValue(size_t row, size_t column) const {
   if (row >= size_ || column >= size_) {
@@ -63,13 +63,18 @@ void Graph::LoadGraphFromFile(std::string filename) {
         ParseSize(line);
         first_line = false;
       } else if (!line.empty()) {
-        if (row >= size_) throw std::out_of_range("The matrix is wrong");
+        if (row >= size_) {
+          Reset();
+          throw std::out_of_range("The matrix is wrong");
+        }
         ParseLine(line, row);
         ++row;
       }
     }
-    if (row < size_)
+    if (row < size_) {
+      Reset();
       throw std::length_error("The matrix has less rows than size");
+    }
   } else {
     throw std::runtime_error("File not found");
   }
@@ -97,8 +102,10 @@ bool s21::Graph::GraphIsEmpty() const { return size_ == 0; }
 
 void Graph::ParseSize(std::string line) {
   int size = std::stoi(line);
-  if (size == 0) throw std::invalid_argument("The matrix has size zero");
-  if (size < 0) throw std::invalid_argument("The matrix has incorrect size");
+  if (size == 0)
+    throw std::invalid_argument("The matrix has size zero");
+  if (size < 0)
+    throw std::invalid_argument("The matrix has incorrect size");
   size_ = size;
 }
 
@@ -109,16 +116,20 @@ void Graph::ParseLine(std::string line, size_t row) {
   matrix_.push_back(r);
   std::string token;
   while (ss >> token) {
-    if (column >= size_) throw std::out_of_range("The matrix is wrong");
+    if (column >= size_)
+      throw std::out_of_range("The matrix is wrong");
     matrix_[row].push_back(std::stoi(token));
     ++column;
   }
-  if (column < size_)
+  if (column < size_) {
+    Reset();
     throw std::length_error("The matrix has less columns than size");
+  }
 }
 
 void Graph::Reset() {
-  if (matrix_.size()) matrix_.clear();
+  if (matrix_.size())
+    matrix_.clear();
   size_ = 0;
 }
-}  // namespace s21
+} // namespace s21
