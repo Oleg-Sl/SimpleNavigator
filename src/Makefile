@@ -42,11 +42,20 @@ leaks: test
 	$(MEMORY_TEST) $(BUILD_DIR)/tests/$(TEST_EXE) --gtest_filter=-*.Throw*
 
 report: build
+ifeq ($(OS), $(MACOS))
+	cmake --build $(BUILD_DIR) --target rep
+	./$(BUILD_DIR)/coverage/report
+	lcov --capture --directory $(BUILD_DIR)/coverage --output-file $(BUILD_DIR)/coverage/s21_coverage.info --exclude "/usr/*" --ignore-errors mismatch
+	genhtml $(BUILD_DIR)/coverage/s21_coverage.info --output-directory s21_lcov_report
+	$(OPEN_FILE) ./s21_lcov_report/index.html
+else
 	cmake --build $(BUILD_DIR) --target report
 	./$(BUILD_DIR)/tests/report
 	lcov --capture --directory $(BUILD_DIR)/tests/CMakeFiles/report.dir --output-file $(BUILD_DIR)/s21_coverage.info --exclude "/usr/*"
 	genhtml $(BUILD_DIR)/s21_coverage.info --output-directory s21_lcov_report
 	$(OPEN_FILE) ./s21_lcov_report/index.html
+endif
+
 
 stylecheck: build
 	cmake --build $(BUILD_DIR) --target stylecheck

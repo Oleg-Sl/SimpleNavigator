@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.5)
 
 project(SimpleNavigator)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+message("Compiler Version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 add_compile_options(-Wall -Wextra -pedantic -Werror)
 
@@ -47,7 +48,10 @@ target_link_libraries(cli ${TARGET_GRAPH_ALGORITM_LIB})
 
 target_include_directories(cli PUBLIC ${RELATIVE_HEADER_DIR})
 
-add_custom_target(rep COMMAND g++ -Wall -Wextra -Werror -std=c++17 ../tests/*.cc ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE} -o s21_test -fprofile-arcs -ftest-coverage -lgtest)
+
+add_custom_target(rep 
+COMMAND mkdir coverage
+COMMAND cd coverage && g++ -Wall -Wextra -Werror -std=c++17 -I ${SOURCE_DIR} ${TESTS_DIR}/* ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE} -o report -fprofile-arcs -ftest-coverage -lgtest)
 add_custom_target(format COMMAND clang-format --style=Google -i --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 add_custom_target(stylecheck COMMAND clang-format --style=Google -n --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 add_custom_target(cppcheck COMMAND cppcheck --language=c++ --enable=all --suppress=missingInclude --inconclusive ${TEST_SOURCES} ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
