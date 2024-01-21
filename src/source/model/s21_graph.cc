@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iomanip>
 #include <stdexcept>
+#include <sstream>
 
 namespace s21 {
 
