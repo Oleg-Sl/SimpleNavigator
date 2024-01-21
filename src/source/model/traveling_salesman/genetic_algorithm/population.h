@@ -11,7 +11,7 @@ namespace s21 {
 class Population {
  public:
   Population();
-  Population(std::vector<size_t>& vertices, size_t size_population);
+  Population(const std::vector<size_t>& vertices, size_t size_population);
   Population(const Population& other);
   Population(const Population&& other);
 
@@ -23,7 +23,7 @@ class Population {
   Chromosome& GetChromosome(size_t index);
   size_t GetSize() const;
   void Clear();
-  void ComputeFitness(Graph& dictances);
+  void ComputeFitness(const Graph& dictances);
 
  private:
   std::vector<Chromosome> populations_;

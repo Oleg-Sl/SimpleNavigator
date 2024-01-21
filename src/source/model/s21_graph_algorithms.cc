@@ -119,7 +119,7 @@ GraphAlgorithms::GetShortestPathsBetweenAllVertices(Graph& graph) {
   return result;
 }
 
-GraphAlgorithms::MatrixAdjacency GraphAlgorithms::GetLeastSpanningTree(
+GraphAlgorithms::MatrixAdjacency GraphAlgorithms::GetLeastSpanningTree(const 
     Graph& graph) {
   size_t N = graph.GetSize();
   std::vector<std::vector<size_t>> spanning_tree(N, std::vector<size_t>(N, 0));
@@ -186,7 +186,7 @@ TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemGeneticAlgorithm(
   return path;
 }
 
-TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemSimulatedAnnealing(
+TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemSimulatedAnnealing(const 
     Graph& graph) {
   SimulatedAnnealing simulated_annealing(graph, AnnealingParams{});
 

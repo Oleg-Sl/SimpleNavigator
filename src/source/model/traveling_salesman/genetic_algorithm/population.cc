@@ -8,27 +8,27 @@ namespace s21 {
 
 Population::Population() : populations_(){};
 
-Population::Population(std::vector<size_t> &vertices, size_t size_population) {
+Population::Population(const std::vector<size_t> &vertices, size_t size_population) {
   CreatePopulation(vertices, size_population);
 }
 
-Population::Population(const Population &other) {
-  for (auto &chromosome : other.populations_) {
-    populations_.push_back(Chromosome{chromosome.genes, chromosome.distance});
-  }
-}
+// Population::Population(const Population &other) {
+//   for (auto &chromosome : other.populations_) {
+//     populations_.push_back(Chromosome{chromosome.genes, chromosome.distance});
+//   }
+// }
 
 Population::Population(const Population &&other)
     : populations_(std::move(other.populations_)) {}
 
-Population &Population::operator=(const Population &other) {
-  if (&other != this) {
-    for (auto &chromosome : other.populations_) {
-      populations_.push_back(Chromosome{chromosome.genes, chromosome.distance});
-    }
-  }
-  return *this;
-}
+// Population &Population::operator=(const Population &other) {
+//   if (&other != this) {
+//     for (auto &chromosome : other.populations_) {
+//       populations_.push_back(Chromosome{chromosome.genes, chromosome.distance});
+//     }
+//   }
+//   return *this;
+// }
 
 Population &Population::operator=(const Population &&other) {
   if (&other != this) {
@@ -58,7 +58,7 @@ Chromosome &Population::GetChromosome(size_t index) {
   return populations_[index];
 }
 
-void Population::ComputeFitness(Graph &dictances) {
+void Population::ComputeFitness(const Graph &dictances) {
   for (auto &chromosome : populations_) {
     chromosome.UpdateDistance(dictances);
   }

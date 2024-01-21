@@ -40,7 +40,7 @@ void OrderedCrossover::Cross(std::vector<size_t> &genes1,
 
 void OrderedCrossover::ExchangeGenes(std::vector<size_t> &genes1,
                                      std::vector<size_t> &genes2,
-                                     Range &range) {
+                                     const Range &range) {
   if (genes1.size() != genes2.size()) {
     return;
   }
@@ -63,12 +63,11 @@ Range OrderedCrossover::GenerateRandomRange(size_t max_size) {
 
 void OrderedCrossover::InheritGenes(std::vector<size_t> &new_genes,
                                     std::vector<size_t> &old_genes,
-                                    Range &range) {
+                                    const Range &range) {
   size_t ind_dst = 0;
-  size_t ind_src = 0;
 
   for (size_t i = 0; i < old_genes.size() - 1; ++i) {
-    ind_src = (range.right + i) % (old_genes.size() - 1);
+    size_t ind_src = (range.right + i) % (old_genes.size() - 1);
     auto it = std::find(new_genes.begin() + range.left,
                         new_genes.begin() + range.right, old_genes[ind_src]);
 

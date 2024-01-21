@@ -14,11 +14,11 @@ Pheromones::Pheromones(size_t size, double initial_level,
   }
 }
 
-double Pheromones::GetValue(size_t from, size_t to) {
+double Pheromones::GetValue(size_t from, size_t to) const {
   return pheromones_[from][to];
 }
 
-void Pheromones::Update(TsmResult &path, double pheromoneQuantiy) {
+void Pheromones::Update(const TsmResult &path, double pheromoneQuantiy) {
   double pheromonAverage = pheromoneQuantiy / path.distance;
   Lay(path.vertices, pheromonAverage);
   Evapration();

@@ -10,7 +10,7 @@ namespace s21 {
 
 class Controller {
  public:
-  Controller(Graph& graph) : graph_(graph){};
+  explicit Controller(Graph& graph) : graph_(graph){};
   void LoadGraphFromFile(std::string filename);
   std::vector<size_t> BreadthFirstSearch(size_t start_vertex);
   std::vector<size_t> DepthFirstSearch(size_t start_vertex);

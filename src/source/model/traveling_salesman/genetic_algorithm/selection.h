@@ -10,17 +10,17 @@
 namespace s21 {
 
 class SelectionStrategy {
- public:
+public:
   virtual Population Execute(Population &population) = 0;
 };
 
 class TournamentSelection : public SelectionStrategy {
- public:
+public:
   const size_t kParticipantCount = 3;
 
-  Population Execute(Population &population);
+  Population Execute(Population &population) override;
 
- private:
+private:
   std::random_device rd_{};
   std::mt19937 gen_{rd_()};
 
@@ -30,6 +30,6 @@ class TournamentSelection : public SelectionStrategy {
                                  const std::set<size_t> &participant_indexes);
 };
 
-};  // namespace s21
+}; // namespace s21
 
-#endif  // SIMPLE_NAVIGATOR_SOURCE_MODEL_TRAVELING_SALESMAN_GENETIC_ALGORITHM_SELECTION_H_
+#endif // SIMPLE_NAVIGATOR_SOURCE_MODEL_TRAVELING_SALESMAN_GENETIC_ALGORITHM_SELECTION_H_

@@ -59,11 +59,11 @@ bool Ant::Move(Pheromones &pheromones) {
 
 TsmResult &Ant::GetPath() { return path_; }
 
-double Ant::GetPheromonQuantiy() { return pheromon_quantiy_; }
+double Ant::GetPheromonQuantiy() const { return pheromon_quantiy_; }
 
 size_t Ant::GetCurrentVertex() { return path_.vertices.back(); }
 
-std::vector<double> Ant::GetProbabilities(Pheromones &pheromones,
+std::vector<double> Ant::GetProbabilities(const Pheromones &pheromones,
                                           std::vector<size_t> &neighbors) {
   std::vector<double> probabilities;
   probabilities.reserve(neighbors.size());
@@ -106,7 +106,7 @@ std::vector<size_t> Ant::GetVerticesPossibleNeighbors() {
   return neighbors;
 }
 
-double Ant::CalcSummaryWeight(Pheromones &pheromones,
+double Ant::CalcSummaryWeight(const Pheromones &pheromones,
                               std::vector<size_t> &neighbors) {
   size_t current_vertex = GetCurrentVertex();
   double summaryWeight = 0;

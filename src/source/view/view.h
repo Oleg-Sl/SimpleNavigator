@@ -12,7 +12,7 @@ class View {
   enum class MatrixFunctionsType { kShortestPaths, kLeastSpanningTree };
   enum class FirstSearchType { kBreadth, kDepth };
 
-  View(Controller& controller) : controller_(controller) {}
+  explicit View(Controller& controller) : controller_(controller) {}
   void Start();
 
  private:

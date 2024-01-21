@@ -16,10 +16,10 @@ class GraphAlgorithms {
   size_t GetShortestPathBetweenVertices(Graph& graph, size_t vertex1,
                                         size_t vertex2);
   MatrixAdjacency GetShortestPathsBetweenAllVertices(Graph& graph);
-  MatrixAdjacency GetLeastSpanningTree(Graph& graph);
+  MatrixAdjacency GetLeastSpanningTree(const Graph& graph);
   TsmResult SolveTravelingSalesmanProblem(Graph& graph);
   TsmResult SolveTravelingSalesmanProblemGeneticAlgorithm(Graph& graph);
-  TsmResult SolveTravelingSalesmanProblemSimulatedAnnealing(Graph& graph);
+  TsmResult SolveTravelingSalesmanProblemSimulatedAnnealing(const Graph& graph);
 };
 }  // namespace s21
 

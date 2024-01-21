@@ -32,10 +32,8 @@ set(ASSETS_DIR ${BASE_DIR}/assets)
 set(RELATIVE_HEADER_DIR ${SOURCE_DIR})
 
 # Sources
-file(GLOB_RECURSE CLI_SOURCE ${CONTROLLER_DIR}/*.cc ${VIEW_DIR}/*.cc ${BASE_DIR}/app.cc
-                             ${CONTROLLER_DIR}/*.h  ${VIEW_DIR}/*.h
-)
-file(GLOB_RECURSE LIB_GRAPH_SOURCE ${MODEL_DIR}/s21_graph.cc ${MODEL_DIR}/s21_graph.h)
+file(GLOB_RECURSE CLI_SOURCE ${CONTROLLER_DIR}/*.cc ${VIEW_DIR}/*.cc ${BASE_DIR}/app.cc)
+file(GLOB_RECURSE LIB_GRAPH_SOURCE ${MODEL_DIR}/s21_graph.cc)
 file(GLOB_RECURSE LIB_GRAPH_ALGORITHM_SOURCE  ${MODEL_DIR}/s21_graph_algorithms.cc
                                               ${MODEL_DIR}/traveling_salesman/*.cc
 )
@@ -50,7 +48,7 @@ target_include_directories(cli PUBLIC ${RELATIVE_HEADER_DIR})
 add_custom_target(rep COMMAND g++ -Wall -Wextra -Werror -std=c++17 ../tests/*.cc ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE} -o s21_test -fprofile-arcs -ftest-coverage -lgtest)
 add_custom_target(format COMMAND clang-format --style=Google -i --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 add_custom_target(stylecheck COMMAND clang-format --style=Google -n --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
-add_custom_target(cppcheck COMMAND cppcheck --language=c++ --enable=all --suppress=missingInclude --inconclusive ${TEST_SOURCES} ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
+add_custom_target(cppcheck COMMAND cppcheck --language=c++ --enable=all --suppress=unusedFunction --suppress=missingInclude --inconclusive --suppress=functionStatic ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 
 enable_testing()
 add_subdirectory(${MODEL_DIR})

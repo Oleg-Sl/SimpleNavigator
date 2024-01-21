@@ -12,7 +12,7 @@ class Graph {
   using MatrixAdjacency = std::vector<std::vector<size_t>>;
 
   Graph() = default;
-  Graph(size_t size);
+  explicit Graph(size_t size);
   Graph(size_t size, size_t init_value);
 
   void SetValue(size_t row, size_t column, size_t value);

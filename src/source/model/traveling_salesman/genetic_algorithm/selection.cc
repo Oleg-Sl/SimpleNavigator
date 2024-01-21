@@ -24,7 +24,7 @@ Population TournamentSelection::Execute(Population &population) {
 }
 
 Chromosome TournamentSelection::GetWinnerChromosome(
-    Population &population, const std::set<size_t> &participant_indexes) {
+   Population &population, const std::set<size_t> &participant_indexes) {
   auto winner =
       std::min_element(participant_indexes.begin(), participant_indexes.end(),
                        [&population](const size_t ind1, const size_t ind2) {
