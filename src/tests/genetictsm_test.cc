@@ -9,8 +9,9 @@ TEST(GeneticTest, ThrowEmptyGraph) {
   ASSERT_THROW(graph.LoadGraphFromFile(kAssetsDir + "graph_0x0.txt"),
                std::invalid_argument);
   GraphAlgorithms algorithms;
-  ASSERT_THROW(algorithms.SolveTravelingSalesmanProblemGeneticAlgorithm(graph),
-               std::invalid_argument);
+  ASSERT_EQ(
+      algorithms.SolveTravelingSalesmanProblemGeneticAlgorithm(graph).distance,
+      std::numeric_limits<double>::infinity());
 }
 
 TEST(GeneticTest, SingleVertexGraph) {
@@ -35,13 +36,14 @@ TEST(GeneticTest, TwoVertexGraph) {
   ASSERT_EQ(result.distance, 4);
 }
 
-TEST(GeneticTest, ThrowNoSolutionGraph) {
+TEST(GeneticTest, NoSolutionGraph) {
   Graph graph;
   graph.LoadGraphFromFile(kAssetsDir + "graph_no_solution.txt");
   GraphAlgorithms algorithms;
 
-  ASSERT_THROW(algorithms.SolveTravelingSalesmanProblemGeneticAlgorithm(graph),
-               std::invalid_argument);
+  ASSERT_EQ(
+      algorithms.SolveTravelingSalesmanProblemGeneticAlgorithm(graph).distance,
+      std::numeric_limits<double>::infinity());
 }
 
 TEST(GeneticTest, LargeGraph) {
@@ -69,4 +71,4 @@ TEST(GeneticTest, MultipleRunsGraph) {
   }
 }
 
-}  // namespace s21
+} // namespace s21

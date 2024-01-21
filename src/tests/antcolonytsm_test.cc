@@ -9,8 +9,8 @@ TEST(AntColonyTest, ThrowEmptyGraph) {
   ASSERT_THROW(graph.LoadGraphFromFile(kAssetsDir + "graph_0x0.txt"),
                std::invalid_argument);
   GraphAlgorithms algorithms;
-  ASSERT_THROW(algorithms.SolveTravelingSalesmanProblem(graph),
-               std::invalid_argument);
+  ASSERT_EQ(algorithms.SolveTravelingSalesmanProblem(graph).distance,
+            std::numeric_limits<double>::infinity());
 }
 
 TEST(AntColonyTest, SingleVertexGraph) {
@@ -33,12 +33,12 @@ TEST(AntColonyTest, TwoVertexGraph) {
   ASSERT_EQ(result.distance, 4);
 }
 
-TEST(AntColonyTest, ThrowNoSolutionGraph) {
+TEST(AntColonyTest, NoSolutionGraph) {
   Graph graph;
   graph.LoadGraphFromFile(kAssetsDir + "graph_no_solution.txt");
   GraphAlgorithms algorithms;
-  ASSERT_THROW(algorithms.SolveTravelingSalesmanProblem(graph),
-               std::invalid_argument);
+  ASSERT_EQ(algorithms.SolveTravelingSalesmanProblem(graph).distance,
+            std::numeric_limits<double>::infinity());
 }
 
 TEST(AntColonyTest, LargeGraph) {
@@ -65,4 +65,4 @@ TEST(AntColonyTest, MultipleRunsGraph) {
   }
 }
 
-}  // namespace s21
+} // namespace s21
