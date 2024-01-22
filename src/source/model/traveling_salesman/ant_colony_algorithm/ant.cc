@@ -16,18 +16,12 @@ Ant::Ant(Graph &distances, std::mt19937 &gen, double pheromon_quantiy)
   path_.distance = 0;
 }
 
-bool Ant::Move(Pheromones &pheromones) {
+bool Ant::Move(const Pheromones &pheromones) {
   std::vector<size_t> neighbors = GetVerticesPossibleNeighbors();
   if (neighbors.empty() && path_.vertices.size() == distances_.GetSize()) {
-    size_t distance =
-        distances_.GetValue(path_.vertices.back(), path_.vertices.front());
-    if ((distance == 0 && path_.vertices.back() != path_.vertices.front()) ||
-        std::isinf(path_.distance)) {
-      path_.distance = std::numeric_limits<double>::infinity();
-    } else {
-      path_.distance += static_cast<double>(distance);
-    }
-    path_.vertices.push_back(path_.vertices.front());
+    path_.distance +=
+        GetDistanceBetweenVertices(GetLastVertex(), GetFirstVertex());
+    path_.vertices.push_back(GetFirstVertex());
   }
 
   if (neighbors.empty()) {
@@ -40,15 +34,9 @@ bool Ant::Move(Pheromones &pheromones) {
   for (size_t i = 0; i < probabilities.size(); ++i) {
     if (probability <= probabilities[i]) {
       size_t next_vertex = neighbors[i];
-      size_t distance = distances_.GetValue(GetCurrentVertex(), next_vertex);
+      path_.distance +=
+          GetDistanceBetweenVertices(GetLastVertex(), next_vertex);
       path_.vertices.push_back(next_vertex);
-      if (distance == 0 || std::isinf(path_.distance)) {
-        path_.distance = std::numeric_limits<double>::infinity();
-      } else {
-        path_.distance += static_cast<double>(distance);
-      }
-      // path_.distance += distance == 0 ?  : static_cast<double>(distance);
-
       used_vertex_[next_vertex] = true;
       break;
     }
@@ -57,11 +45,22 @@ bool Ant::Move(Pheromones &pheromones) {
   return true;
 }
 
-TsmResult &Ant::GetPath() { return path_; }
+const TsmResult &Ant::GetPath() const { return path_; }
 
 double Ant::GetPheromonQuantiy() const { return pheromon_quantiy_; }
 
-size_t Ant::GetCurrentVertex() { return path_.vertices.back(); }
+double Ant::GetDistanceBetweenVertices(size_t from, size_t to) const {
+  size_t distance = distances_.GetValue(from, to);
+  if (distance == 0 && from != to) {
+    return std::numeric_limits<double>::infinity();
+  }
+
+  return static_cast<double>(distance);
+}
+
+size_t Ant::GetFirstVertex() { return path_.vertices.front(); }
+
+size_t Ant::GetLastVertex() { return path_.vertices.back(); }
 
 std::vector<double> Ant::GetProbabilities(const Pheromones &pheromones,
                                           std::vector<size_t> &neighbors) {
@@ -70,7 +69,7 @@ std::vector<double> Ant::GetProbabilities(const Pheromones &pheromones,
 
   double summaryWeight = CalcSummaryWeight(pheromones, neighbors);
 
-  size_t current_vertex = GetCurrentVertex();
+  size_t current_vertex = GetLastVertex();
   for (auto &neighbor : neighbors) {
     double probability =
         pow(kDistance / distances_.GetValue(current_vertex, neighbor), kBetta) *
@@ -93,7 +92,7 @@ double Ant::GetRandomProbability() {
 }
 
 std::vector<size_t> Ant::GetVerticesPossibleNeighbors() {
-  size_t current_vertex = GetCurrentVertex();
+  size_t current_vertex = GetLastVertex();
   std::vector<size_t> neighbors;
 
   for (size_t to_vertex = 0; to_vertex < distances_.GetSize(); ++to_vertex) {
@@ -108,14 +107,16 @@ std::vector<size_t> Ant::GetVerticesPossibleNeighbors() {
 
 double Ant::CalcSummaryWeight(const Pheromones &pheromones,
                               std::vector<size_t> &neighbors) {
-  size_t current_vertex = GetCurrentVertex();
-  double summaryWeight = 0;
+  size_t current_vertex = GetLastVertex();
 
-  for (auto &neighbor : neighbors) {
-    summaryWeight +=
-        pow(kDistance / distances_.GetValue(current_vertex, neighbor), kBetta) *
-        pow(pheromones.GetValue(current_vertex, neighbor), kAlpha);
-  }
+  double summaryWeight = std::accumulate(
+      neighbors.begin(), neighbors.end(), 0.0,
+      [&](double acc, const auto &neighbor) {
+        return acc +
+               pow(kDistance / distances_.GetValue(current_vertex, neighbor),
+                   kBetta) *
+                   pow(pheromones.GetValue(current_vertex, neighbor), kAlpha);
+      });
 
   return summaryWeight;
 }

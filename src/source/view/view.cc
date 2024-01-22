@@ -148,11 +148,10 @@ void View::CompareMethodsSolvingTravelingSalesmanProblem() {
     return;
   }
 
-  size_t number;
   std::cout << "Enter the number of reruns for each algorithm for solving "
                "the traveling salesman problem:\n";
   try {
-    number = InputNumber();
+    size_t number = InputNumber();
     std::chrono::milliseconds time_ant_colony =
         MeasureTime(AlgoritmSolveTSM::kAntColony, number);
     std::chrono::milliseconds time_genetic =

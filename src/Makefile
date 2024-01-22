@@ -2,12 +2,15 @@ BUILD_DIR = build
 DOCS_DIR = docs
 TEXI2DVI = texi2dvi
 TEST_EXE = SimpleNavigatorTests
+REPORT_FLAG =
 
 OS = $(shell uname -s)
 MACOS = Darwin
 
 ifeq ($(OS), $(MACOS))
 MEMORY_TEST = leaks -atExit --
+
+REPORT_FLAG = --ignore-errors mismatch
 OPEN_FILE	= open
 else 
 MEMORY_TEST = valgrind --trace-children=yes --leak-check=yes --track-origins=yes
@@ -44,7 +47,7 @@ leaks: test
 report: build
 	cmake --build $(BUILD_DIR) --target report
 	./$(BUILD_DIR)/tests/report
-	lcov --capture --directory $(BUILD_DIR)/tests/CMakeFiles/report.dir --output-file $(BUILD_DIR)/s21_coverage.info --exclude "/usr/*" --exclude "*build/*" --ignore-errors mismatch
+	lcov --capture --directory $(BUILD_DIR)/tests/CMakeFiles/report.dir --output-file $(BUILD_DIR)/s21_coverage.info --exclude "/usr/*" --exclude "*build/*" $(REPORT_FLAG)
 	genhtml $(BUILD_DIR)/s21_coverage.info --output-directory s21_lcov_report
 	$(OPEN_FILE) ./s21_lcov_report/index.html
 

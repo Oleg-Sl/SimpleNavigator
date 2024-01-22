@@ -22,7 +22,7 @@ TsmResult AntColony::Solve() {
     for (auto &ant : ant_colony) {
       while (ant.Move(pheromones)) {
       }
-      TsmResult &path = ant.GetPath();
+      const TsmResult &path = ant.GetPath();
       pheromones.Update(path, ant.GetPheromonQuantiy());
       if (path.vertices.size() == (graph_.GetSize() + 1) &&
           path.distance < min_path.distance) {
