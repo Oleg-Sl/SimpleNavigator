@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 
 project(SimpleNavigator)
 
@@ -13,11 +13,9 @@ else()
   add_compile_options(-O3 -DNDEBUG)
 endif()
 
-
 # Libraries names
 set(TARGET_GRAPH_LIB s21_graph)
 set(TARGET_GRAPH_ALGORITM_LIB s21_graph_algorithms)
-
 
 # Directories
 set(BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
@@ -45,7 +43,6 @@ target_link_libraries(cli ${TARGET_GRAPH_ALGORITM_LIB})
 
 target_include_directories(cli PUBLIC ${RELATIVE_HEADER_DIR})
 
-add_custom_target(rep COMMAND g++ -Wall -Wextra -Werror -std=c++17 ../tests/*.cc ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE} -o s21_test -fprofile-arcs -ftest-coverage -lgtest)
 add_custom_target(format COMMAND clang-format --style=Google -i --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 add_custom_target(stylecheck COMMAND clang-format --style=Google -n --verbose ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})
 add_custom_target(cppcheck COMMAND cppcheck --language=c++ --enable=all --suppress=unusedFunction --suppress=missingInclude --inconclusive --suppress=functionStatic ${CLI_SOURCE} ${LIB_GRAPH_SOURCE} ${LIB_GRAPH_ALGORITHM_SOURCE})

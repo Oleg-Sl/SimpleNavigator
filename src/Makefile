@@ -32,7 +32,7 @@ s21_graph_algorithms.a: build
 	cmake --build $(BUILD_DIR) --target s21_graph_algorithms
 
 build:
-	cmake -B $(BUILD_DIR)
+	CC=gcc CXX=g++ cmake -B $(BUILD_DIR) 
 
 cli: build
 	cmake --build $(BUILD_DIR) --target cli
@@ -44,7 +44,7 @@ leaks: test
 report: build
 	cmake --build $(BUILD_DIR) --target report
 	./$(BUILD_DIR)/tests/report
-	lcov --capture --directory $(BUILD_DIR)/tests/CMakeFiles/report.dir --output-file $(BUILD_DIR)/s21_coverage.info --exclude "/usr/*"
+	lcov --capture --directory $(BUILD_DIR)/tests/CMakeFiles/report.dir --output-file $(BUILD_DIR)/s21_coverage.info --exclude "/usr/*" --exclude "*build/*" --ignore-errors mismatch
 	genhtml $(BUILD_DIR)/s21_coverage.info --output-directory s21_lcov_report
 	$(OPEN_FILE) ./s21_lcov_report/index.html
 
