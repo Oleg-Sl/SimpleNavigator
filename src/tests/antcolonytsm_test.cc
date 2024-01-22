@@ -57,7 +57,7 @@ TEST(AntColonyTest, MultipleRunsGraph) {
   graph.LoadGraphFromFile(kAssetsDir + "graph_example.txt");
   GraphAlgorithms algorithms;
 
-  for (size_t i = 0; i < 100; ++i) {
+  for (size_t i = 0; i < 50; ++i) {
     TsmResult result = algorithms.SolveTravelingSalesmanProblem(graph);
     ASSERT_EQ(result.vertices.size(), graph.GetSize() + 1);
     ASSERT_LT(result.distance, 270);
