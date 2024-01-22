@@ -96,7 +96,7 @@ void Graph::ExportGraphToDot(std::string filename) const {
   out.close();
 }
 
-bool s21::Graph::GraphIsEmpty() const { return size_ == 0; }
+bool Graph::GraphIsEmpty() const { return size_ == 0; }
 
 void Graph::ParseSize(std::string line) {
   int size = std::stoi(line);
