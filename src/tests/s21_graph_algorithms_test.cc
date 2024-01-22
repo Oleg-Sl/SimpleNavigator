@@ -36,7 +36,7 @@ TEST_F(TestDepthFirstSearch, test4) {
   size_t vertex = 3;
   std::vector<size_t> result = algorithms.DepthFirstSearch(graph, vertex);
   for (size_t i = 0; i < result.size(); ++i) {
-    ASSERT_EQ(result[i], expected_result[i]);
+    ASSERT_EQ(result[i], expected_result[i] - 1);
   }
 }
 
@@ -72,7 +72,7 @@ TEST_F(TestBreadthFirstSearch, test4) {
   size_t vertex = 1;
   std::vector<size_t> result = algorithms.BreadthFirstSearch(graph, vertex);
   for (size_t i = 0; i < result.size(); ++i) {
-    ASSERT_EQ(result[i], expected_result[i]);
+    ASSERT_EQ(result[i], expected_result[i] - 1);
   }
 }
 

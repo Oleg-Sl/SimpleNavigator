@@ -23,7 +23,7 @@ std::vector<size_t> GraphAlgorithms::DepthFirstSearch(Graph& graph,
   Stack<size_t> stack;
   stack.Push(start);
   std::vector<size_t> result;
-  result.push_back(start + 1);
+  result.push_back(start);
   while (!stack.Empty()) {
     size_t current = stack.Top();
     bool vertex_has_children = false;
@@ -32,7 +32,7 @@ std::vector<size_t> GraphAlgorithms::DepthFirstSearch(Graph& graph,
         visited[i] = true;
         vertex_has_children = true;
         stack.Push(i);
-        result.push_back(i + 1);
+        result.push_back(i);
         current = i;
       }
     }
@@ -53,7 +53,7 @@ std::vector<size_t> GraphAlgorithms::BreadthFirstSearch(Graph& graph,
   Queue<size_t> queue;
   queue.Push(start);
   std::vector<size_t> result;
-  result.push_back(start + 1);
+  result.push_back(start);
   while (!queue.Empty()) {
     size_t current = queue.Front();
     queue.Pop();
@@ -61,7 +61,7 @@ std::vector<size_t> GraphAlgorithms::BreadthFirstSearch(Graph& graph,
       if (graph.GetData()[current][i] && !visited[i]) {
         visited[i] = true;
         queue.Push(i);
-        result.push_back(i + 1);
+        result.push_back(i);
       }
     }
   }
