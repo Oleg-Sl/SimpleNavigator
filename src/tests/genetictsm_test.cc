@@ -58,7 +58,7 @@ TEST(GeneticTest, LargeGraph) {
   ASSERT_GT(result.distance, 250);
 }
 
-TEST(GeneticTest, MultipleRunsGraph) {
+TEST(GeneticTest, MultipleRunsGraphNoCheckLeaks) {
   Graph graph;
   graph.LoadGraphFromFile(kAssetsDir + "graph_example.txt");
   GraphAlgorithms algorithms;

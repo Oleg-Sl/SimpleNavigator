@@ -52,7 +52,7 @@ TEST(AntColonyTest, LargeGraph) {
   ASSERT_GT(result.distance, 250);
 }
 
-TEST(AntColonyTest, MultipleRunsGraph) {
+TEST(AntColonyTest, MultipleRunsGraphNoCheckLeaks) {
   Graph graph;
   graph.LoadGraphFromFile(kAssetsDir + "graph_example.txt");
   GraphAlgorithms algorithms;
