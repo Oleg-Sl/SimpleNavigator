@@ -14,15 +14,15 @@ struct Range {
 };
 
 class CrossoverStrategy {
-public:
+ public:
   virtual void Execute(Population &population, double probability_crossing) = 0;
 };
 
 class OrderedCrossover : public CrossoverStrategy {
-public:
+ public:
   void Execute(Population &population, double probability_crossing = 0.9);
 
-private:
+ private:
   std::random_device rd_{};
   std::mt19937 gen_{rd_()};
 
@@ -34,6 +34,6 @@ private:
                     std::vector<size_t> &old_genes, const Range &range);
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // SIMPLE_NAVIGATOR_SOURCE_MODEL_TRAVELING_SALESMAN_GENETIC_ALGORITHM_CROSSOVER_H_
+#endif  // SIMPLE_NAVIGATOR_SOURCE_MODEL_TRAVELING_SALESMAN_GENETIC_ALGORITHM_CROSSOVER_H_

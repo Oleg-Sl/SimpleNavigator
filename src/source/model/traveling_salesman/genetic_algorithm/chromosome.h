@@ -3,8 +3,8 @@
 
 #include <cstddef>
 #include <limits>
-#include <vector>
 #include <stdexcept>
+#include <vector>
 
 #include "model/s21_graph.h"
 
