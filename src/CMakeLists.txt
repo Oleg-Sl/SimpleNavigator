@@ -10,7 +10,7 @@ add_compile_options(-Wall -Wextra -pedantic -Werror)
 if(CMAKE_BUILD_TYPE MATCHES "^Debug")
   add_compile_options(-g -O0)
 else()
-  add_compile_options(-O3 -DNDEBUG)
+  add_compile_options(-O0 -DNDEBUG)
 endif()
 
 # Libraries names
