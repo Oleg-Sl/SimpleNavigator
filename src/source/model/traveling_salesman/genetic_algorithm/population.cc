@@ -50,8 +50,6 @@ void Population::ComputeFitness(const Graph &dictances) {
   }
 }
 
-void Population::Clear() { populations_.clear(); }
-
 void Population::AddChromosome(Chromosome &&chromosome) {
   populations_.push_back(std::move(chromosome));
 }

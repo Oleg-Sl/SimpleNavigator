@@ -22,7 +22,7 @@ all: s21_graph.a s21_graph_algorithms.a
 
 clean:
 	rm -rf $(BUILD_DIR)
-	rm -rf s21_lcov_report
+	rm -rf s21_lcov_report filename
 
 test: build
 	cmake --build $(BUILD_DIR) --target $(TEST_EXE)
