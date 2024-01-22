@@ -29,7 +29,7 @@ TEST(Graph, ConstructorInitValue) {
   }
 }
 
-TEST(Graph, SetValue) {
+TEST(Graph, SetValueThrow) {
   size_t size = 7;
   Graph graph(size);
   size_t row = 7;
@@ -51,7 +51,7 @@ TEST(Graph, SetValue) {
   }
 }
 
-TEST(Graph, GetValue) {
+TEST(Graph, GetValueThrow) {
   Graph graph;
   graph.LoadGraphFromFile(kAssetsDir + "example3.txt");
   size_t row = 9;
@@ -64,7 +64,7 @@ TEST(Graph, GetValue) {
   ASSERT_EQ(5, value);
 }
 
-TEST(Graph, Neighbors) {
+TEST(Graph, NeighborsThrow) {
   Graph graph;
   graph.LoadGraphFromFile(kAssetsDir + "example3.txt");
   size_t from = 10;
@@ -79,7 +79,7 @@ TEST(Graph, Neighbors) {
   }
 }
 
-TEST(Graph, LoadFromFile) {
+TEST(Graph, LoadFromFileThrow) {
   Graph graph;
   ASSERT_THROW(graph.LoadGraphFromFile(kAssetsDir + "file_not_exists"),
                std::runtime_error);
@@ -95,19 +95,19 @@ TEST(Graph, GraphIsEmpty) {
   ASSERT_EQ(graph.GraphIsEmpty(), false);
 }
 
-TEST(Graph, ParseLine) {
+TEST(Graph, ParseLineThrow) {
   Graph graph;
   ASSERT_THROW(graph.LoadGraphFromFile(kAssetsDir + "invalid_matrix2.txt"),
                std::length_error);
 }
 
-TEST(Graph, ExportToDot) {
+TEST(Graph, ExportToDotThrow) {
   Graph graph;
   graph.LoadGraphFromFile(kAssetsDir + "example2.txt");
   EXPECT_NO_THROW(graph.ExportGraphToDot("filename"));
 }
 
-TEST(Graph, Reset) {
+TEST(Graph, ResetThrow) {
   Graph graph;
   EXPECT_NO_THROW(graph.LoadGraphFromFile(kAssetsDir + "example1.txt"));
   EXPECT_NO_THROW(graph.LoadGraphFromFile(kAssetsDir + "example2.txt"));

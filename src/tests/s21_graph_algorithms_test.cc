@@ -15,13 +15,13 @@ protected:
                                       9, 4, 10, 11, 12, 13};
 };
 
-TEST_F(TestDepthFirstSearch, test1) {
+TEST_F(TestDepthFirstSearch, test1Throw) {
   size_t vertex = 0;
   ASSERT_THROW(algorithms.DepthFirstSearch(graph, vertex),
                std::invalid_argument);
 }
 
-TEST_F(TestDepthFirstSearch, test2) {
+TEST_F(TestDepthFirstSearch, test2Throw) {
   size_t vertex = 15;
   ASSERT_THROW(algorithms.DepthFirstSearch(graph, vertex);, std::out_of_range);
 }
@@ -50,13 +50,13 @@ protected:
                                       6, 9, 11, 12, 7, 8};
 };
 
-TEST_F(TestBreadthFirstSearch, test1) {
+TEST_F(TestBreadthFirstSearch, test1Throw) {
   size_t vertex = 0;
   ASSERT_THROW(algorithms.BreadthFirstSearch(graph, vertex),
                std::invalid_argument);
 }
 
-TEST_F(TestBreadthFirstSearch, test2) {
+TEST_F(TestBreadthFirstSearch, test2Throw) {
   size_t vertex = 15;
   ASSERT_THROW(algorithms.BreadthFirstSearch(graph, vertex);
                , std::out_of_range);
@@ -84,7 +84,7 @@ protected:
   GraphAlgorithms algorithms;
 };
 
-TEST_F(TestGetShortestPathBetweenVertices, test1) {
+TEST_F(TestGetShortestPathBetweenVertices, test1Throw) {
   size_t vertex1 = 0;
   size_t vertex2 = 8;
   ASSERT_THROW(
@@ -92,7 +92,7 @@ TEST_F(TestGetShortestPathBetweenVertices, test1) {
       std::invalid_argument);
 }
 
-TEST_F(TestGetShortestPathBetweenVertices, test2) {
+TEST_F(TestGetShortestPathBetweenVertices, test2Throw) {
   size_t vertex1 = 1;
   size_t vertex2 = 10;
   ASSERT_THROW(

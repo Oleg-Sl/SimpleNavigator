@@ -39,7 +39,7 @@ cli: build
 	./$(BUILD_DIR)/cli
 
 leaks: test
-	$(MEMORY_TEST) $(BUILD_DIR)/tests/$(TEST_EXE) --gtest_filter=-*.Throw*
+	$(MEMORY_TEST) $(BUILD_DIR)/tests/$(TEST_EXE) --gtest_filter=-*.*Throw*
 
 report: build
 	cmake --build $(BUILD_DIR) --target report
